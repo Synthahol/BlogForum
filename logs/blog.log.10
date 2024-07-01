@@ -1,0 +1,101 @@
+2024-06-27 16:56:56,802 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 94, in home
+    return render_template("home.html", posts=posts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\home.html", line 1, in top-level template code
+    <!DOCTYPE html>
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'base' is undefined
+2024-06-27 16:57:11,645 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
+2024-06-27 16:57:13,656 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:02,384 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:33,506 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:37,062 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:38,527 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:39,383 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 16:58:40,236 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:02:15,508 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:02:16,469 INFO: Fetched 6 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:03:20,363 INFO: Media file saved: Koh_Rong_Sanloem_Sunset_Beach_Sunset.jpg [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:03:20,507 INFO: Thumbnail saved: thumb_Koh_Rong_Sanloem_Sunset_Beach_Sunset.jpg [in C:\Users\15097\Desktop\FinalBlog\utils.py:43]
+2024-06-27 17:03:20,516 INFO: Post created: have another image just because with thumbnail thumb_Koh_Rong_Sanloem_Sunset_Beach_Sunset.jpg [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:03:20,525 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:04:17,470 INFO: Media file saved: SampleVideo_1280x720_20mb.mp4 [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:04:18,087 ERROR: Error saving thumbnail: Format FFMPEG cannot write in ImageMode.single_image mode [in C:\Users\15097\Desktop\FinalBlog\utils.py:48]
+2024-06-27 17:04:18,094 INFO: Post created: video thumbnail test with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:04:18,104 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:05:05,286 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:05:08,804 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:07:16,452 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:07:58,283 INFO: Media file saved: flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:07:58,284 ERROR: Thumbnail not created for flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\utils.py:45]
+2024-06-27 17:07:58,291 INFO: Post created: pdf test 2 with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:07:58,301 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:19:01,400 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
+2024-06-27 17:19:06,326 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:19:13,572 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:19:48,699 INFO: Media file saved: flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:19:48,699 INFO: Processing PDF for thumbnail: C:\Users\15097\Desktop\FinalBlog\static/uploads\flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\utils.py:48]
+2024-06-27 17:19:48,703 ERROR: Error saving thumbnail: Unable to get page count. Is poppler installed and in PATH? [in C:\Users\15097\Desktop\FinalBlog\utils.py:73]
+2024-06-27 17:19:48,711 INFO: Post created: try again... with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:19:48,722 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:20:13,485 INFO: Media file saved: SampleVideo_1280x720_20mb.mp4 [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:20:13,485 INFO: Processing video for thumbnail: C:\Users\15097\Desktop\FinalBlog\static/uploads\SampleVideo_1280x720_20mb.mp4 [in C:\Users\15097\Desktop\FinalBlog\utils.py:38]
+2024-06-27 17:20:14,047 ERROR: Error saving thumbnail: Format FFMPEG cannot write in ImageMode.single_image mode [in C:\Users\15097\Desktop\FinalBlog\utils.py:73]
+2024-06-27 17:20:14,056 INFO: Post created: try try try... with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:20:14,068 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:37:24,090 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:37:56,156 INFO: Media file saved: SampleVideo_1280x720_20mb.mp4 [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:37:56,157 INFO: Processing video for thumbnail: C:\Users\15097\Desktop\FinalBlog\static/uploads\SampleVideo_1280x720_20mb.mp4 [in C:\Users\15097\Desktop\FinalBlog\utils.py:38]
+2024-06-27 17:37:56,798 ERROR: Error saving thumbnail: Format FFMPEG cannot write in ImageMode.single_image mode [in C:\Users\15097\Desktop\FinalBlog\utils.py:73]
+2024-06-27 17:37:56,805 INFO: Post created: bla video with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:37:56,820 INFO: Fetched 10 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:38:37,273 INFO: Media file saved: flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:38:37,273 INFO: Processing PDF for thumbnail: C:\Users\15097\Desktop\FinalBlog\static/uploads\flask_cheatsheet.pdf [in C:\Users\15097\Desktop\FinalBlog\utils.py:48]
+2024-06-27 17:38:37,277 ERROR: Error saving thumbnail: Unable to get page count. Is poppler installed and in PATH? [in C:\Users\15097\Desktop\FinalBlog\utils.py:73]
+2024-06-27 17:38:37,284 INFO: Post created: bla pdf with thumbnail None [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:38:37,304 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:39:08,912 INFO: Fetched 10 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:39:12,133 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:39:16,596 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:39:23,777 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:41:36,274 INFO: Fetched 7 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:43:01,864 INFO: Media file saved: 7369.png [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
+2024-06-27 17:43:01,899 INFO: Image thumbnail created at C:\Users\15097\Desktop\FinalBlog\static/uploads\thumb_7369.png [in C:\Users\15097\Desktop\FinalBlog\utils.py:35]
+2024-06-27 17:43:01,900 INFO: Thumbnail saved: thumb_7369.png [in C:\Users\15097\Desktop\FinalBlog\utils.py:68]
+2024-06-27 17:43:01,906 INFO: Post created: another image test with thumbnail thumb_7369.png [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-06-27 17:43:01,917 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:44:30,528 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:44:42,607 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:45:20,384 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:46:32,453 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:49:38,531 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:49:43,415 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:50:51,270 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
+2024-06-27 17:50:53,898 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
+2024-06-27 17:52:22,038 INFO: Fetched 8 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]

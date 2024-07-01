@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
+block content %}
+<div class="container mt-5">
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+
+  {% if post.media_filename %} {% set ext = post.media_filename.split('.')[-1]
+  %} {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'tif', 'svg'] %}
+  <img
+    src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    class="img-fluid"
+    alt="Media"
+  />
+  {% elif ext in ['mp4', 'avi', 'avchd', 'mov', 'flv', 'wmv'] %}
+  <video controls class="w-100">
+    <source
+      src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+      type="video/{{ ext }}"
+    />
+  </video>
+  {% elif ext in ['mp3', 'm4a', 'wav'] %}
+  <audio controls class="w-100">
+    <source
+      src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+      type="audio/{{ ext }}"
+    />
+  </audio>
+  {% elif ext == 'pdf' %}
+  <embed
+    src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    type="application/pdf"
+    width="100%"
+    height="600px"
+  />
+  {% elif ext in ['txt', 'html', 'xls', 'xlsx', 'csv', 'doc', 'docs'] %}
+  <a
+    href="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    target="_blank"
+    >View Document</a
+  >
+  {% endif %} {% endif %} {% if spreadsheet_content %}
+  <div class="spreadsheet-content">
+    <h2>Spreadsheet Content:</h2>
+    {{ spreadsheet_content | safe }}
+  </div>
+  {% endif %}
+
+  <p>
+    <small
+      >Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{ post.author
+      }}</small
+    >
+  </p>
+
+  {% if current_user.is_authenticated and current_user.username == post.author
+  %}
+  <a
+    href="{{ url_for('update_post', post_id=post.id) }}"
+    class="btn btn-secondary"
+    >Edit</a
+  >
+  <form
+    method="POST"
+    action="{{ url_for('delete_post', post_id=post.id) }}"
+    style="display: inline"
+  >
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+  {% endif %}
+
+  <!-- Display Comments -->
+  <h2>Comments</h2>
+  {% for comment in comments %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <p class="card-text">{{ comment.content }}</p>
+      <p class="card-text">
+        <small class="text-muted"
+          >Posted by {{ comment.author }} on {{
+          comment.date_posted.strftime('%Y-%m-%d') }}</small
+        >
+      </p>
+      {% if current_user.is_authenticated and (current_user.username ==
+      comment.author or current_user.role == 'admin') %}
+      <form
+        method="POST"
+        action="{{ url_for('delete_comment', comment_id=comment.id) }}"
+        style="display: inline"
+      >
+        <button type="submit" class="btn btn-danger">Delete Comment</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <!-- Add Comment Form -->
+  {% if current_user.is_authenticated %}
+  <h2>Add a Comment</h2>
+  <form method="POST">
+    {% if form %} {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.comment.label(class="form-label") }} {{
+      form.comment(class="form-control") }}
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  {% else %}
+  <p>You need to <a href="{{ url_for('login') }}">login</a> to comment.</p>
+  {% endif %}
+</div>
+{% endblock %}
