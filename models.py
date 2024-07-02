@@ -12,7 +12,6 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     media_filename = db.Column(db.String(100), nullable=True)
-    thumbnail_filename = db.Column(db.String(100), nullable=True)
     author = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):

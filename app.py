@@ -34,7 +34,6 @@ from utils import (
     read_rtf,
     save_file,
     save_media,
-    save_thumbnail,
 )
 
 app = Flask(__name__)
@@ -146,16 +145,13 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         filename = None
-        thumbnail_filename = None
         if form.media.data:
             filename = save_media(form.media.data)
-            thumbnail_filename = save_thumbnail(form.media.data, filename)
 
         post = Post(
             title=form.title.data,
             content=form.content.data,
             media_filename=filename,
-            thumbnail_filename=thumbnail_filename,
             author=current_user.username,
         )
         db.session.add(post)
