@@ -5,7 +5,7 @@
   <h1 class="text-center mb-4">Welcome to my Blorum!</h1>
 </div>
 <div class="container narrow-container">
-  {% for post in posts %}
+  {% for post in posts.items %}
   <div class="card mb-4 shadow-sm">
     <div class="row g-0">
       <div class="col-md-9">
@@ -32,5 +32,25 @@
     </div>
   </div>
   {% endfor %}
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between">
+    {% if posts.has_prev %}
+    <a
+      href="{{ url_for('home', page=posts.prev_num) }}"
+      class="btn btn-secondary"
+      >Previous</a
+    >
+    {% else %}
+    <span class="btn btn-secondary disabled">Previous</span>
+    {% endif %} {% if posts.has_next %}
+    <a
+      href="{{ url_for('home', page=posts.next_num) }}"
+      class="btn btn-secondary"
+      >See more posts</a
+    >
+    {% else %}
+    <span class="btn btn-secondary disabled">See more posts</span>
+    {% endif %}
+  </div>
 </div>
 {% endblock content %}

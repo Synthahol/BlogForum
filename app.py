@@ -82,10 +82,13 @@ def admin_required(f):
     return decorated_function
 
 
-@app.route("/")
-def home():
-    posts = Post.query.order_by(Post.date_posted.desc()).all()
-    logger.info(f"Fetched {len(posts)} posts")
+@app.route("/", methods=["GET"])
+@app.route("/page/<int:page>", methods=["GET"])
+def home(page=1):
+    per_page = 10
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(
+        page=page, per_page=per_page, error_out=False
+    )
     return render_template("home.html", posts=posts)
 
 

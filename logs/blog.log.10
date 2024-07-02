@@ -1,71 +1,4 @@
-2024-06-28 16:45:09,223 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:45:32,614 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:45:40,290 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:46:34,891 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:48:47,090 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:49:12,618 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:49:41,464 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:50:02,849 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:50:20,610 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:50:47,052 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:50:54,698 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:51:16,857 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:51:41,662 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:51:55,066 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:52:02,991 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:52:23,735 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:52:39,596 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:53:04,396 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:53:24,807 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:53:45,609 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:53:58,320 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:58:19,194 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 16:59:06,319 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:00:49,030 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:02:42,653 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:05:48,137 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:05:50,854 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:12:42,928 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:12:46,242 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:13:25,992 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:14:25,465 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:14:53,750 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:16:59,748 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:17:07,651 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:17:09,853 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:19:29,276 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:19:32,181 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:20:47,147 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:20:55,243 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:20:56,783 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:22:21,250 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:22:25,551 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:24:22,320 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:24:26,243 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:24:55,050 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:25:01,637 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:25:02,309 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:26:57,076 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:27:01,569 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:27:46,298 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:27:48,037 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:32:20,686 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:32:26,646 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:33:11,472 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:35:37,690 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:37:08,696 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:59]
-2024-06-28 17:37:10,373 INFO: Fetched 9 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:40:21,391 INFO: Media file saved: 3196600-uhd_3840_2160_25fps.mp4 [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
-2024-06-28 17:40:21,400 INFO: Post created: Test account testing posting: Video [in C:\Users\15097\Desktop\FinalBlog\app.py:150]
-2024-06-28 17:40:21,410 INFO: Fetched 10 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:41:47,692 INFO: Media file saved: podcast.mp3 [in C:\Users\15097\Desktop\FinalBlog\app.py:141]
-2024-06-28 17:41:47,696 INFO: Post created: now to test audio again [in C:\Users\15097\Desktop\FinalBlog\app.py:150]
-2024-06-28 17:41:47,705 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 17:45:36,762 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:93]
-2024-06-28 18:14:08,795 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
-2024-06-28 18:14:14,440 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
-2024-06-28 18:15:33,894 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
-2024-06-28 18:16:36,240 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-06-28 18:17:47,060 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -89,7 +22,16 @@ Traceback (most recent call last):
     filename = secure_filename(form_media.filename)
                                ^^^^^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'filename'
-2024-06-28 18:16:41,757 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-01 12:46:48,578 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-01 12:46:52,457 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 12:47:34,081 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 13:57:05,886 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-01 13:57:11,980 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
+2024-07-01 13:57:14,827 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
+2024-07-01 13:57:28,976 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
+2024-07-01 13:58:14,924 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
+2024-07-01 13:58:14,936 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
+2024-07-01 13:58:14,958 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -106,14 +48,74 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 147, in new_post
-    filename = save_media(form.media.data)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 86, in save_media
-    filename = secure_filename(form_media.filename)
-                               ^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'filename'
-2024-06-28 18:16:45,853 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
-2024-06-28 18:17:10,837 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:148]
-2024-06-28 18:17:10,847 INFO: Post created: spreadsheet [in C:\Users\15097\Desktop\FinalBlog\app.py:157]
-2024-06-28 18:17:10,860 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 163, in new_post
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 1, in top-level template code
+    <!DOCTYPE html>{% extends "base.html" %} {% block title %}{{ post.title }}{%
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 99, in block 'content'
+    {{ form.hidden_tag() }}
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'form' is undefined
+2024-07-01 13:58:41,345 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
+2024-07-01 13:58:41,351 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
+2024-07-01 13:58:41,352 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 163, in new_post
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 1, in top-level template code
+    <!DOCTYPE html>{% extends "base.html" %} {% block title %}{{ post.title }}{%
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 99, in block 'content'
+    {{ form.hidden_tag() }}
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'form' is undefined
+2024-07-01 13:59:47,731 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
+2024-07-01 13:59:47,737 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
