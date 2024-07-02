@@ -5,13 +5,12 @@ from models import User
 
 with app.app_context():
     # check if the admin user already exists
-    admin = User.query.filter_by(username="admin").first()
-    if admin is None:
+    if not User.query.filter_by(username="admin").first():
         # Create the admin user if it does not exist
         admin = User(
             username="admin",
-            email="admin@example.com",
-            password=generate_password_hash("adminpassword"),
+            email="85cawill@gmail.com",
+            password=generate_password_hash("adminpassword", method="sha256"),
             role="admin",
         )
         db.session.add(admin)

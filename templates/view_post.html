@@ -53,8 +53,9 @@ block content %}
     >
   </p>
 
-  {% if current_user.is_authenticated and current_user.username == post.author
-  %}
+  {% if current_user.is_authenticated and (current_user.username == post.author
+  or current_user.role == 'admin') %}
+
   <a
     href="{{ url_for('update_post', post_id=post.id) }}"
     class="btn btn-secondary"

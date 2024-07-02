@@ -82,19 +82,6 @@ def admin_required(f):
     return decorated_function
 
 
-@app.route("/admin/delete_comment/<int:comment_id>", methods=["POST"])
-@login_required
-def delete_comment(comment_id):
-    comment = Comment.query.get_or_404(comment_id)
-    post_id = comment.post_id
-    if comment.author != current_user.username and current_user.role != "admin":
-        abort(403)
-    db.session.delete(comment)
-    db.session.commit()
-    flash("Comment has been deleted.", "success")
-    return redirect(url_for("view_post", post_id=post_id))
-
-
 @app.route("/")
 def home():
     posts = Post.query.order_by(Post.date_posted.desc()).all()
@@ -229,8 +216,10 @@ def view_post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user.username:
-        abort(403)
+    if current_user.username != post.author and not current_user.is_admin():
+        flash("You do not have permission to edit this post.", "danger")
+        return redirect(url_for("home"))
+
     form = PostForm()
     if form.validate_on_submit():
         post.title = form.title.data
@@ -238,9 +227,9 @@ def update_post(post_id):
         db.session.commit()
         flash("Your post has been updated!", "success")
         return redirect(url_for("view_post", post_id=post.id))
-    elif request.method == "GET":
-        form.title.data = post.title
-        form.content.data = post.content
+
+    form.title.data = post.title
+    form.content.data = post.content
     return render_template(
         "update.html", title="Update Post", form=form, post_id=post.id
     )
@@ -250,12 +239,27 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user.username:
-        abort(403)
+    if current_user.username != post.author and not current_user.is_admin():
+        flash("You do not have permission to delete this post.", "danger")
+        return redirect(url_for("home"))
+
     db.session.delete(post)
     db.session.commit()
     flash("Your post has been deleted!", "success")
     return redirect(url_for("home"))
+
+
+@app.route("/admin/delete_comment/<int:comment_id>", methods=["POST"])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    if current_user.username != comment.author and not current_user.is_admin():
+        flash("You do not have permission to delete this comment.", "danger")
+        return redirect(url_for("view_post", post_id=comment.post_id))
+    db.session.delete(comment)
+    db.session.commit()
+    flash("Comment has been deleted.", "success")
+    return redirect(url_for("view_post", post_id=comment.post_id))
 
 
 @app.route("/profile/<username>")
