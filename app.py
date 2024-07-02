@@ -32,6 +32,7 @@ from utils import (
     read_ods,
     read_odt,
     read_rtf,
+    sanitize_and_render_markdown,
     save_file,
     save_media,
 )
@@ -197,6 +198,7 @@ def upload_file():
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
+    sanitized_content = sanitize_and_render_markdown(post.content)
     form = CommentForm()
     if form.validate_on_submit():
         if not current_user.is_authenticated:
@@ -214,7 +216,13 @@ def view_post(post_id):
         .order_by(Comment.date_posted.desc())
         .all()
     )
-    return render_template("view_post.html", post=post, form=form, comments=comments)
+    return render_template(
+        "view_post.html",
+        post=post,
+        form=form,
+        comments=comments,
+        content=sanitized_content,
+    )
 
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])

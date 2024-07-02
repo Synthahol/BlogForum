@@ -3,7 +3,7 @@
 block content %}
 <div class="container mt-5">
   <h1>{{ post.title }}</h1>
-  <p>{{ post.content }}</p>
+  <div>{{ content|safe }}</div>
 
   {% if post.media_filename %} {% set ext = post.media_filename.split('.')[-1]
   %} {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'tif', 'svg'] %}

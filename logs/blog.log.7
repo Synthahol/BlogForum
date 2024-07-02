@@ -1,37 +1,4 @@
-2024-06-28 18:17:47,060 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 147, in new_post
-    filename = save_media(form.media.data)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 86, in save_media
-    filename = secure_filename(form_media.filename)
-                               ^^^^^^^^^^^^^^^^^^^
-AttributeError: 'NoneType' object has no attribute 'filename'
-2024-07-01 12:46:48,578 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
-2024-07-01 12:46:52,457 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
-2024-07-01 12:47:34,081 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
-2024-07-01 13:57:05,886 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-01 13:57:11,980 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 13:57:14,827 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 13:57:28,976 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 13:58:14,924 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
-2024-07-01 13:58:14,936 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
-2024-07-01 13:58:14,958 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-01 14:10:27,291 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -61,21 +28,21 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 1, in top-level template code
-    <!DOCTYPE html>{% extends "base.html" %} {% block title %}{{ post.title }}{%
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 2, in top-level template code
+    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
     ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
     {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 99, in block 'content'
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 102, in block 'content'
     {{ form.hidden_tag() }}
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
     return getattr(obj, attribute)
            ^^^^^^^^^^^^^^^^^^^^^^^
 jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 13:58:41,345 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
-2024-07-01 13:58:41,351 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
-2024-07-01 13:58:41,352 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-01 14:11:41,351 INFO: Media file saved: Resume.docx [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
+2024-07-01 14:11:41,358 INFO: Post created: resume [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
+2024-07-01 14:11:41,360 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -105,17 +72,60 @@ Traceback (most recent call last):
     self.environment.handle_exception()
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 1, in top-level template code
-    <!DOCTYPE html>{% extends "base.html" %} {% block title %}{{ post.title }}{%
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 2, in top-level template code
+    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
     ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
     {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 99, in block 'content'
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 102, in block 'content'
     {{ form.hidden_tag() }}
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
     return getattr(obj, attribute)
            ^^^^^^^^^^^^^^^^^^^^^^^
 jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 13:59:47,731 INFO: Media file saved: Free_Audio_Plugins.ods [in C:\Users\15097\Desktop\FinalBlog\app.py:153]
-2024-07-01 13:59:47,737 INFO: Post created: spreadsheet attempt [in C:\Users\15097\Desktop\FinalBlog\app.py:162]
+2024-07-01 14:19:28,846 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-01 14:19:46,185 INFO: Post created: resume [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
+2024-07-01 14:19:46,206 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 167, in new_post
+    return render_template(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 4, in top-level template code
+    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 104, in block 'content'
+    {{ form.hidden_tag() }}
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'form' is undefined
+2024-07-01 14:20:07,113 INFO: Post created: resume [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
