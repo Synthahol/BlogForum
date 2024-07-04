@@ -34,6 +34,9 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
+    avatar = db.Column(db.String(150), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    social_media = db.Column(db.String(500), nullable=True)
     role = db.Column(db.String(50), nullable=False, default="user")
 
     def is_admin(self):

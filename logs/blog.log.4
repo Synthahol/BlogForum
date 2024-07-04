@@ -1,4 +1,4 @@
-2024-07-01 15:07:59,712 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-01 15:24:35,742 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,79 +15,13 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 167, in new_post
-    return render_template(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 2, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
-    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 102, in block 'content'
-    {{ form.hidden_tag() }}
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 15:16:47,133 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-01 15:16:52,327 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-01 15:17:00,107 INFO: Fetched 17 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 15:17:21,452 INFO: Post created: ;jh [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
-2024-07-01 15:17:21,457 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 167, in new_post
-    return render_template(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 4, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
-    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 104, in block 'content'
-    {{ form.hidden_tag() }}
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 15:19:43,509 INFO: Post created: ;jh [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
-2024-07-01 15:19:43,511 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 148, in new_post
+  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 98, in save_media
+    filename = secure_filename(form_media.filename)
+                               ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'filename'
+2024-07-01 16:03:58,533 INFO: Post created: nothing [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
+2024-07-01 16:03:58,534 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -118,14 +52,78 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
     raise rewrite_traceback_stack(source=source)
   File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 4, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
+    <div class="container mt-5">
     ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
     {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 104, in block 'content'
-    {{ form.hidden_tag() }}
+    {{ form.comment.label(class="form-label") }} {{
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
     return getattr(obj, attribute)
            ^^^^^^^^^^^^^^^^^^^^^^^
 jinja2.exceptions.UndefinedError: 'form' is undefined
+2024-07-01 16:14:08,958 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-01 16:14:34,439 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-01 16:15:03,962 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-01 16:15:12,843 INFO: Post created: asdfsadf [in C:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-01 16:15:12,850 INFO: Fetched 21 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:37,085 INFO: Fetched 20 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:40,123 INFO: Fetched 19 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:44,413 INFO: Fetched 18 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:47,876 INFO: Fetched 17 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:50,455 INFO: Fetched 16 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:15:53,747 INFO: Fetched 15 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:16:00,113 INFO: Fetched 14 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:16:04,074 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:16:06,881 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:16:11,423 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:23:10,180 INFO: Post created: asdfasdf [in C:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-01 16:23:10,188 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:24:26,926 INFO: Post created: asdfasdfasdf [in C:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-01 16:24:26,935 INFO: Fetched 14 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:24:39,375 INFO: Post created: asdfasdfasdf [in C:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-01 16:24:39,383 INFO: Fetched 15 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:50:42,596 INFO: Fetched 15 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-01 16:50:50,087 INFO: Post created: asdfasdf [in C:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-01 16:50:50,100 INFO: Fetched 16 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:100]
+2024-07-02 13:51:19,239 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 13:51:21,145 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:01:51,473 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-02 14:01:52,713 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-02 14:13:49,024 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-02 14:13:50,295 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:66]
+2024-07-02 14:14:31,207 INFO: Post created: URL posting [in c:\Users\15097\Desktop\FinalBlog\app.py:160]
+2024-07-02 14:31:14,569 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:31:19,851 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
+2024-07-02 14:31:39,649 INFO: Post created: adding urls [in C:\Users\15097\Desktop\FinalBlog\app.py:161]
+2024-07-02 14:31:39,656 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
+2024-07-02 14:31:42,774 ERROR: Exception on /post/14 [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 201, in view_post
+    sanitized_content = sanitize_and_render_markdown(post.content)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 109, in sanitize_and_render_markdown
+    allowed_tags = bleach.sanitizer.ALLOWED_TAGS + ["a"]
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+TypeError: unsupported operand type(s) for +: 'frozenset' and 'list'
+2024-07-02 14:35:03,839 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:35:05,118 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:35:35,159 INFO: Post created: urls [in c:\Users\15097\Desktop\FinalBlog\app.py:161]
+2024-07-02 14:36:30,119 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:37:06,041 INFO: Post created: urls [in c:\Users\15097\Desktop\FinalBlog\app.py:161]
+2024-07-02 14:39:40,871 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
+2024-07-02 14:40:11,865 INFO: Post created: urls [in C:\Users\15097\Desktop\FinalBlog\app.py:161]

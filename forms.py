@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
 from wtforms import PasswordField, StringField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import URL, DataRequired, Email, EqualTo, Length
 
 # List of allowed file extensions
 ALLOWED_EXTENSIONS = {
@@ -68,3 +68,17 @@ class PostForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField("Comment:", validators=[DataRequired()])
     submit = SubmitField("Submit")
+
+
+class UpdateProfileForm(FlaskForm):
+    username = StringField(
+        "Username", validators=[DataRequired(), Length(min=2, max=150)]
+    )
+    bio = TextAreaField("Bio", validators=[Length(max=500)])
+    avatar = FileField(
+        "Update Profile Picture", validators=[FileAllowed(["jpg", "png"])]
+    )
+    social_media = StringField(
+        "Social Media Links", validators=[Length(max=500), URL()]
+    )
+    submit = SubmitField("Update Profile")

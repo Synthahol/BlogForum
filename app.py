@@ -22,9 +22,10 @@ from flask_login import (
 )
 from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 from config import Config
-from forms import CommentForm, LoginForm, PostForm, RegistrationForm
+from forms import CommentForm, LoginForm, PostForm, RegistrationForm, UpdateProfileForm
 from models import Comment, Post, User, db
 from utils import (
     allowed_file,
@@ -265,9 +266,28 @@ def delete_comment(comment_id):
     return redirect(url_for("view_post", post_id=comment.post_id))
 
 
-@app.route("/profile/<username>")
-@login_required
+@app.route("/profile/<username>", methods=["POST", "GET"])
+@login_required  # ensure user is logged in
 def profile(username):
+    form = UpdateProfileForm()
+    if form.validate_on_submit():
+        if form.avatar.data:
+            avatar_file = secure_filename(form.avatar.data.filename)
+            form.avatar.data.save(
+                os.path.join(app.config["UPLOAD_FOLDER"], avatar_file)
+            )
+            current_user.avatar = avatar_file
+        current_user.username = form.username.data
+        current_user.bio = form.bio.data
+        current_user.social_media = form.social_media.data
+        db.session.commit()
+        flash("Your profile has been updated!", "success")
+        return redirect(url_for("profile", username=current_user.username))
+    elif request.method == "GET":
+        form.username.data = current_user.username
+        form.bio.data = current_user.bio
+        form.social_media.data = current_user.social_media
+
     user = User.query.filter_by(username=username).first_or_404()
     posts = (
         Post.query.filter_by(author=user.username)
@@ -279,7 +299,9 @@ def profile(username):
         .order_by(Comment.date_posted.desc())
         .all()
     )
-    return render_template("profile.html", user=user, posts=posts, comments=comments)
+    return render_template(
+        "profile.html", user=user, form=form, posts=posts, comments=comments
+    )
 
 
 if __name__ == "__main__":
