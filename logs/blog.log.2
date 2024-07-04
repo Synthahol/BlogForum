@@ -1,4 +1,4 @@
-2024-07-02 14:58:25,725 ERROR: Exception on /post/18 [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-04 12:19:39,384 ERROR: Exception on /profile/admin [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,78 +12,48 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 201, in view_post
-    sanitized_content = sanitize_and_render_markdown(post.content)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 147, in sanitize_and_render_markdown
-    html_content = markdown(
-                   ^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\markdown\core.py", line 482, in markdown
-    return md.convert(text)
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\markdown\core.py", line 384, in convert
-    output = pp.run(output)
-             ^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\utils.py", line 26, in run
-    start, end = link["index"], link["lastIndex"]
-                 ~~~~^^^^^^^^^
-TypeError: 'Match' object is not subscriptable
-2024-07-02 15:01:17,873 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 15:01:19,209 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 15:01:43,380 INFO: Post created: moooore url testing [in c:\Users\15097\Desktop\FinalBlog\app.py:161]
-2024-07-02 15:03:06,756 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 15:03:09,413 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 16:12:58,244 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 16:13:03,303 INFO: Fetched 18 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:14:58,133 INFO: Fetched 18 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:16,778 INFO: Fetched 17 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:26,259 INFO: Fetched 16 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:29,085 INFO: Fetched 15 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:31,907 INFO: Fetched 14 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:34,696 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:37,906 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:15:40,929 INFO: Fetched 11 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:16:08,754 INFO: Post created: URL Testing [in C:\Users\15097\Desktop\FinalBlog\app.py:161]
-2024-07-02 16:16:08,761 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:31:45,095 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 16:32:00,004 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:32:19,685 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:34:27,680 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:34:59,522 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:35:15,336 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:35:21,857 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:38:38,169 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:38:50,718 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:40:26,186 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:41:06,657 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:41:33,614 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:41:41,622 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:41:52,066 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:42:05,117 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:43:23,210 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:43:34,876 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:43:43,515 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:43:59,522 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:44:13,796 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:44:36,960 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 16:45:20,771 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-02 17:05:56,718 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:06:25,749 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:15:25,560 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:15:26,757 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:19:38,053 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:19:43,038 INFO: Blog startup [in c:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:20:14,127 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:20:19,309 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:20:29,409 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:21:51,185 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:32:05,834 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:32:15,337 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:33:09,388 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:33:12,029 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:34:30,078 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:88]
-2024-07-02 17:49:59,071 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:50:02,540 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 301, in profile
+    return render_template("profile.html", user=user, posts=posts, comments=comments)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\profile.html", line 1, in top-level template code
+    <!DOCTYPE html>{% extends "base.html" %} {% block title %}Profile - {{
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\profile.html", line 35, in block 'content'
+    {{ form.hidden_tag() }}
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'form' is undefined
+2024-07-04 12:24:44,870 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 12:48:33,932 INFO: Post created: Testing Some more [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-07-04 12:56:29,035 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 12:58:13,366 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:03:00,591 INFO: Post created: I built this! [in C:\Users\15097\Desktop\FinalBlog\app.py:152]
+2024-07-04 13:05:58,849 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:36:52,896 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:37:01,763 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:37:13,302 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:38:29,120 INFO: Post created: Tag testing [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
+2024-07-04 13:52:34,850 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 13:53:15,481 INFO: Post created: More tag testing [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
+2024-07-04 14:12:08,245 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:68]
+2024-07-04 14:12:29,685 ERROR: Exception on /tag/stuff [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -97,12 +67,31 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 89, in home
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page, per_page, False)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: Query.paginate() takes 1 positional argument but 4 were given
-2024-07-02 17:52:04,443 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:67]
-2024-07-02 17:52:12,592 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 324, in tag
+    return render_template("tag", tag=tag, posts=posts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1084, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1013, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 972, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: tag
+2024-07-04 14:12:33,583 ERROR: Exception on /tag/coding [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -116,7 +105,27 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 89, in home
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-TypeError: Query.paginate() takes 1 positional argument but 2 positional arguments (and 2 keyword-only arguments) were given
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 324, in tag
+    return render_template("tag", tag=tag, posts=posts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1084, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1013, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 972, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: tag

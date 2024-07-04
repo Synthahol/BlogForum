@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "base.html" %} {% block title %}{{ 'Edit Tag' if tag else 'New Tag'
+}}{% endblock %} {% block content %}
+<div class="container mt-5">
+  <h1>{{ 'Edit Tag' if tag else 'New Tag' }}</h1>
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }} {{
+      form.name(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+{% endblock %}

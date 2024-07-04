@@ -56,6 +56,7 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = TextAreaField("Content", validators=[DataRequired()])
+    tags = StringField("Tags (comma separated)")
     media = FileField(
         "Upload File",
         validators=[
@@ -82,3 +83,8 @@ class UpdateProfileForm(FlaskForm):
         "Social Media Links", validators=[Length(max=500), URL()]
     )
     submit = SubmitField("Update Profile")
+
+
+class TagForm(FlaskForm):
+    name = StringField("Tag Name", validators=[DataRequired()])
+    submit = SubmitField("Save")

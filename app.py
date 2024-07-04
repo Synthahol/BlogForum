@@ -1,5 +1,6 @@
 import logging
 import os
+import re
 from functools import wraps
 from logging.handlers import RotatingFileHandler
 
@@ -25,8 +26,15 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
 from config import Config
-from forms import CommentForm, LoginForm, PostForm, RegistrationForm, UpdateProfileForm
-from models import Comment, Post, User, db
+from forms import (
+    CommentForm,
+    LoginForm,
+    PostForm,
+    RegistrationForm,
+    TagForm,
+    UpdateProfileForm,
+)
+from models import Comment, Post, Tag, User, db
 from utils import (
     allowed_file,
     read_docx,
@@ -81,6 +89,11 @@ def admin_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def slugify(string):
+    string = re.sub(r"[^\w\s-]", "", string).strip().lower()
+    return re.sub(r"[-\s]+", "-", string)
 
 
 @app.route("/", methods=["GET"])
@@ -140,12 +153,25 @@ def new_post():
         if form.media.data:
             filename = save_media(form.media.data)
 
+        # Create the post object
         post = Post(
             title=form.title.data,
             content=form.content.data,
             media_filename=filename,
             author=current_user.username,
         )
+
+        # Handle tags
+        tag_names = [name.strip() for name in form.tags.data.split(",")]
+        tags = []
+        for name in tag_names:
+            tag = Tag.query.filter_by(name=name).first()
+            if tag is None:
+                tag = Tag(name=name)
+                db.session.add(tag)
+            tags.append(tag)
+        post.tags = tags
+
         db.session.add(post)
         db.session.commit()
 
@@ -302,6 +328,72 @@ def profile(username):
     return render_template(
         "profile.html", user=user, form=form, posts=posts, comments=comments
     )
+
+
+@app.route("/tag/<slug>")
+def tag(slug):
+    tag = Tag.query.filter_by(slug=slug).first_or_404()
+    page = request.args.get("page", 1, type=int)
+    posts = (
+        Post.query.filter(Post.tags.any(Tag.slug == slug))
+        .order_by(Post.date_posted.desc())
+        .paginate(page=page, per_page=5)
+    )
+    return render_template("tag.html", tag=tag, posts=posts)
+
+
+@app.route("/admin/tags", methods=["GET", "POST"])
+@login_required
+def manage_tags():
+    if current_user.role != "admin":
+        abort(403)
+    tags = Tag.query.all()
+    return render_template("admin_tags", tags=tags)
+
+
+@app.route("/admin/tags/new", methods=["POST", "GET"])
+@login_required
+def new_tag():
+    if current_user.role != "admin":
+        abort(403)
+    form = TagForm()
+    if form.validate_on_submit():
+        tag = Tag(name=form.name.data, slug=slugify(form.name.data))
+        db.session.add(tag)
+        db.session.commit()
+        flash("Tag created successfully", "success")
+        return redirect(url_for("manage_tags"))
+    return render_template("new_tag.html", form=form)
+
+
+@app.route("/admin/tags/edit/<int:tag_id>", methods=["GET", "POST"])
+@login_required
+def edit_tag(tag_id):
+    if not current_user.is_admin:
+        abort(403)
+    tag = Tag.query.get_or_404(tag_id)
+    form = TagForm(obj=tag)
+    if form.validate_on_submit():
+        tag.name = form.name.data
+        tag.slug = slugify(form.name.data)
+        db.session.commit()
+        flash("Tag updated successfully", "success")
+        return redirect(url_for("manage_tags"))
+    elif request.method == "GET":
+        form.name.data = tag.name
+    return render_template("edit_tag.html", form=form)
+
+
+@app.route("/admin/tags/delete/<int:tag_id>", methods=["POST"])
+@login_required
+def delete_tag(tag_id):
+    if not current_user.is_admin:
+        abort(403)
+    tag = Tag.query.get_or_404(tag_id)
+    db.session.delete(tag)
+    db.session.commit()
+    flash("Tag deleted successfully", "success")
+    return redirect(url_for("manage_tags"))
 
 
 if __name__ == "__main__":
