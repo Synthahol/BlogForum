@@ -1,4 +1,4 @@
-2024-07-05 12:28:43,464 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-05 14:31:43,007 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,34 +15,11 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 468, in react
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 473, in react
     return redirect(url_for("view_post", post_id=post_id))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
-    return current_app.url_for(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1073, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 922, in build
-    rv = self._partial_build(endpoint, values, method, append_unknown)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 801, in _partial_build
-    rv = self._partial_build(
-         ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 814, in _partial_build
-    build_rv = rule.build(values, append_unknown)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\rules.py", line 839, in build
-    return self._build_unknown(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<werkzeug routing>", line 1, in <builder:'/post/<int:post_id>'>
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
-    value_str = str(self.num_convert(value))
-                    ^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: invalid literal for int() with base 10: ''
-2024-07-05 12:33:11,410 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 12:33:18,620 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+                                                 ^^^^^^^
+UnboundLocalError: cannot access local variable 'post_id' where it is not associated with a value
+2024-07-05 14:33:38,910 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -59,39 +36,19 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 472, in react
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 473, in react
     return redirect(url_for("view_post", post_id=post_id))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
-    return current_app.url_for(
-           ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1073, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 922, in build
-    rv = self._partial_build(endpoint, values, method, append_unknown)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 801, in _partial_build
-    rv = self._partial_build(
-         ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 814, in _partial_build
-    build_rv = rule.build(values, append_unknown)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\rules.py", line 839, in build
-    return self._build_unknown(**values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<werkzeug routing>", line 1, in <builder:'/post/<int:post_id>'>
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
-    value_str = str(self.num_convert(value))
-                    ^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: invalid literal for int() with base 10: ''
-2024-07-05 12:35:33,220 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 12:38:35,379 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 12:53:56,965 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 13:31:03,867 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
-2024-07-05 13:36:31,108 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
-2024-07-05 13:42:42,882 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
-2024-07-05 13:42:58,523 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+                                                 ^^^^^^^
+UnboundLocalError: cannot access local variable 'post_id' where it is not associated with a value
+2024-07-05 14:35:40,957 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:41:56,096 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:45:42,437 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:47:05,183 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:50:23,861 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:58:24,017 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 15:15:13,151 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 15:20:23,426 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 15:20:30,599 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -105,4 +62,55 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1174, in make_response
     raise TypeError(
 TypeError: The view function for 'react' did not return a valid response. The function either returned None or ended without a return statement.
-2024-07-05 13:44:34,661 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 15:21:25,897 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 883, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 902, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1174, in make_response
+    raise TypeError(
+TypeError: The view function for 'react' did not return a valid response. The function either returned None or ended without a return statement.
+2024-07-05 15:22:29,418 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:82]
+2024-07-05 15:22:38,957 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 883, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 902, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1174, in make_response
+    raise TypeError(
+TypeError: The view function for 'react' did not return a valid response. The function either returned None or ended without a return statement.
+2024-07-05 15:28:54,926 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:82]
+2024-07-05 15:29:01,649 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 465, in react
+    existing_reaction = ReactionForm.query.filter_by(
+                        ^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'ReactionForm' has no attribute 'query'
+2024-07-05 15:32:20,132 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:82]

@@ -1,4 +1,4 @@
-2024-07-05 12:05:06,484 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-05 13:44:46,309 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,9 +15,9 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 464, in react
-    return redirect(url_for("view_post", post_id=form.post_id.data))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 471, in react
+    return redirect(url_for('view_post', post_id=form.post_id.data if form.post_id.data else 'default_post_id'))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
     return current_app.url_for(
            ^^^^^^^^^^^^^^^^^^^^
@@ -40,9 +40,9 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
     value_str = str(self.num_convert(value))
                     ^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: invalid literal for int() with base 10: ''
-2024-07-05 12:19:52,284 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 12:19:56,846 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+ValueError: invalid literal for int() with base 10: 'default_post_id'
+2024-07-05 13:49:50,256 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 13:50:00,805 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -59,9 +59,9 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 465, in react
-    return redirect(url_for("view_post", post_id=form.post_id.data))
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 473, in react
+    return redirect(url_for('view_post', post_id=form.post_id.data if form.post_id.data else 'default_post_id'))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
     return current_app.url_for(
            ^^^^^^^^^^^^^^^^^^^^
@@ -84,9 +84,8 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
     value_str = str(self.num_convert(value))
                     ^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: invalid literal for int() with base 10: ''
-2024-07-05 12:23:29,847 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
-2024-07-05 12:26:42,038 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+ValueError: invalid literal for int() with base 10: 'default_post_id'
+2024-07-05 13:51:35,545 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -103,8 +102,34 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 466, in react
-    return redirect(url_for("view_post", post_id=post_id))
-                                                 ^^^^^^^
-UnboundLocalError: cannot access local variable 'post_id' where it is not associated with a value
-2024-07-05 12:28:35,305 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 473, in react
+    return redirect(url_for('view_post', post_id=form.post_id.data if form.post_id.data else 'default_post_id'))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
+    return current_app.url_for(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 922, in build
+    rv = self._partial_build(endpoint, values, method, append_unknown)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 801, in _partial_build
+    rv = self._partial_build(
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 814, in _partial_build
+    build_rv = rule.build(values, append_unknown)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\rules.py", line 839, in build
+    return self._build_unknown(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<werkzeug routing>", line 1, in <builder:'/post/<int:post_id>'>
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
+    value_str = str(self.num_convert(value))
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'default_post_id'
+2024-07-05 13:55:59,834 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:12:29,733 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:17:10,212 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:30:02,794 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 14:31:12,783 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
