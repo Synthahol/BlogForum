@@ -1,3 +1,4 @@
+######### IMPORTS #############
 import logging
 import os
 import re
@@ -46,6 +47,9 @@ from utils import (
     save_media,
 )
 
+##############CONFIGURATIONS ###############
+
+# Main application
 app = Flask(__name__)
 app.config.from_object(Config)
 
@@ -76,11 +80,16 @@ if not app.debug:
     app.logger.info("Blog startup")
 
 
+########### DEFINE FUNCTIONS ##################
+
+
+# Define login manager function
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+# Define admin required
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -91,11 +100,16 @@ def admin_required(f):
     return decorated_function
 
 
+# Define slugify for SEO purposes
 def slugify(string):
     string = re.sub(r"[^\w\s-]", "", string).strip().lower()
     return re.sub(r"[-\s]+", "-", string)
 
 
+######### ROUTES #############
+
+
+# Pagination routing
 @app.route("/", methods=["GET"])
 @app.route("/page/<int:page>", methods=["GET"])
 def home(page=1):
@@ -106,6 +120,7 @@ def home(page=1):
     return render_template("home.html", posts=posts)
 
 
+# Signup page routing
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if current_user.is_authenticated:
@@ -123,6 +138,10 @@ def signup():
     return render_template("signup.html", form=form)
 
 
+##############Login/Logout###############
+
+
+# Login Routing
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -138,12 +157,17 @@ def login():
     return render_template("login.html", form=form)
 
 
+# Logout Route
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("home"))
 
 
+############## ALL POST ROUTINGS ###############
+
+
+# New_Post routing
 @app.route("/new_post", methods=["GET", "POST"])
 @login_required
 def new_post():
@@ -182,6 +206,7 @@ def new_post():
     return render_template("add.html", form=form)
 
 
+# Upload_File Routing
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
@@ -212,6 +237,7 @@ def upload_file():
     return render_template("upload.html")
 
 
+# View_Post page routing
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -242,6 +268,7 @@ def view_post(post_id):
     )
 
 
+# Update_post routing
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
 def update_post(post_id):
@@ -265,6 +292,7 @@ def update_post(post_id):
     )
 
 
+# Delete post routing
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def delete_post(post_id):
@@ -279,6 +307,7 @@ def delete_post(post_id):
     return redirect(url_for("home"))
 
 
+# Comment delete routing
 @app.route("/admin/delete_comment/<int:comment_id>", methods=["POST"])
 @login_required
 def delete_comment(comment_id):
@@ -330,6 +359,10 @@ def profile(username):
     )
 
 
+##################TAGGING AND SEO#################
+
+
+# define tags
 @app.route("/tag/<slug>")
 def tag(slug):
     tag = Tag.query.filter_by(slug=slug).first_or_404()
@@ -342,6 +375,7 @@ def tag(slug):
     return render_template("tag.html", tag=tag, posts=posts)
 
 
+# define managing tags routing
 @app.route("/admin/tags", methods=["GET", "POST"])
 @login_required
 def manage_tags():
@@ -351,6 +385,7 @@ def manage_tags():
     return render_template("admin_tags", tags=tags)
 
 
+# Create new tags
 @app.route("/admin/tags/new", methods=["POST", "GET"])
 @login_required
 def new_tag():
@@ -366,6 +401,7 @@ def new_tag():
     return render_template("new_tag.html", form=form)
 
 
+# Edit tags
 @app.route("/admin/tags/edit/<int:tag_id>", methods=["GET", "POST"])
 @login_required
 def edit_tag(tag_id):
@@ -384,6 +420,7 @@ def edit_tag(tag_id):
     return render_template("edit_tag.html", form=form)
 
 
+# Delete tags
 @app.route("/admin/tags/delete/<int:tag_id>", methods=["POST"])
 @login_required
 def delete_tag(tag_id):
@@ -396,5 +433,6 @@ def delete_tag(tag_id):
     return redirect(url_for("manage_tags"))
 
 
+###############SEND IT################
 if __name__ == "__main__":
     app.run(debug=True)
