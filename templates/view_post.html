@@ -47,13 +47,12 @@ block content %}
   {% endif %}
 
   <p>
-    <small>
-      Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{ post.author
-      }}
-    </small>
+    <small
+      >Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{ post.author
+      }}</small
+    >
   </p>
 
-  <!-- Display Tags -->
   <div>
     <h6>Tags:</h6>
     {% for tag in post.tags %}
@@ -79,17 +78,38 @@ block content %}
   </form>
   {% endif %}
 
-  <!-- Display Comments -->
+  <div class="mt-4" id="reaction-buttons">
+    <form id="reaction-form">
+      {{ reaction_form.hidden_tag() }} {{ reaction_form.post_id(value=post.id)
+      }}
+      <input type="hidden" name="reaction_type" id="reaction_type" />
+      <button type="button" class="btn btn-primary" onclick="react('like')">
+        Like (<span id="like-count"
+          >{{ post.reactions.filter_by(reaction='like').count() }}</span
+        >)
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick="react('dislike')"
+      >
+        Dislike (<span id="dislike-count"
+          >{{ post.reactions.filter_by(reaction='dislike').count() }}</span
+        >)
+      </button>
+    </form>
+  </div>
+
   <h2>Comments</h2>
   {% for comment in comments %}
   <div class="card mb-3">
     <div class="card-body">
       <p class="card-text">{{ comment.content }}</p>
       <p class="card-text">
-        <small class="text-muted">
-          Posted by {{ comment.author }} on {{
-          comment.date_posted.strftime('%Y-%m-%d') }}
-        </small>
+        <small class="text-muted"
+          >Posted by {{ comment.author }} on {{
+          comment.date_posted.strftime('%Y-%m-%d') }}</small
+        >
       </p>
       {% if current_user.is_authenticated and (current_user.username ==
       comment.author or current_user.role == 'admin') %}
@@ -103,10 +123,7 @@ block content %}
       {% endif %}
     </div>
   </div>
-  {% endfor %}
-
-  <!-- Add Comment Form -->
-  {% if current_user.is_authenticated %}
+  {% endfor %} {% if current_user.is_authenticated %}
   <h2>Add a Comment</h2>
   <form method="POST">
     {{ form.hidden_tag() }}
@@ -120,4 +137,30 @@ block content %}
   <p>You need to <a href="{{ url_for('login') }}">login</a> to comment.</p>
   {% endif %}
 </div>
+
+<script>
+  function react(reactionType) {
+    document.getElementById("reaction_type").value = reactionType;
+    let formData = new FormData(document.getElementById("reaction-form"));
+
+    fetch("{{ url_for('react') }}", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-CSRFToken": "{{ csrf_token }}",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          document.getElementById("like-count").textContent = data.likeCount;
+          document.getElementById("dislike-count").textContent =
+            data.dislikeCount;
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((error) => console.error("Error:", error));
+  }
+</script>
 {% endblock %}

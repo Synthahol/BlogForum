@@ -1,4 +1,4 @@
-2024-07-01 14:34:18,481 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-05 12:28:43,464 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,49 +15,34 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 167, in new_post
-    return render_template(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 4, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
-    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 104, in block 'content'
-    {{ form.hidden_tag() }}
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 14:34:25,043 INFO: Fetched 24 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:34:32,288 INFO: Fetched 24 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:34:40,231 INFO: Fetched 24 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:36:44,751 INFO: Fetched 23 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:36:48,383 INFO: Fetched 22 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:36:52,278 INFO: Fetched 21 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:36:55,707 INFO: Fetched 20 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:36:59,149 INFO: Fetched 19 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:02,725 INFO: Fetched 18 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:05,473 INFO: Fetched 17 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:09,679 INFO: Fetched 16 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:11,897 INFO: Fetched 15 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:13,866 INFO: Fetched 14 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:18,717 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:20,808 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:37:28,350 INFO: Fetched 12 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:38:02,729 INFO: Post created: picture [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
-2024-07-01 14:38:02,731 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 468, in react
+    return redirect(url_for("view_post", post_id=post_id))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
+    return current_app.url_for(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 922, in build
+    rv = self._partial_build(endpoint, values, method, append_unknown)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 801, in _partial_build
+    rv = self._partial_build(
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 814, in _partial_build
+    build_rv = rule.build(values, append_unknown)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\rules.py", line 839, in build
+    return self._build_unknown(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<werkzeug routing>", line 1, in <builder:'/post/<int:post_id>'>
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
+    value_str = str(self.num_convert(value))
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+2024-07-05 12:33:11,410 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
+2024-07-05 12:33:18,620 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -74,30 +59,50 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 167, in new_post
-    return render_template(
-           ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 4, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
-    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 104, in block 'content'
-    {{ form.hidden_tag() }}
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
-    return getattr(obj, attribute)
-           ^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'form' is undefined
-2024-07-01 14:38:11,543 INFO: Fetched 13 posts [in C:\Users\15097\Desktop\FinalBlog\app.py:101]
-2024-07-01 14:40:49,963 INFO: Post created: bullshit [in C:\Users\15097\Desktop\FinalBlog\app.py:165]
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 472, in react
+    return redirect(url_for("view_post", post_id=post_id))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\helpers.py", line 220, in url_for
+    return current_app.url_for(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 922, in build
+    rv = self._partial_build(endpoint, values, method, append_unknown)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 801, in _partial_build
+    rv = self._partial_build(
+         ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\map.py", line 814, in _partial_build
+    build_rv = rule.build(values, append_unknown)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\rules.py", line 839, in build
+    return self._build_unknown(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<werkzeug routing>", line 1, in <builder:'/post/<int:post_id>'>
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\werkzeug\routing\converters.py", line 163, in to_url
+    value_str = str(self.num_convert(value))
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: ''
+2024-07-05 12:35:33,220 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
+2024-07-05 12:38:35,379 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
+2024-07-05 12:53:56,965 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:81]
+2024-07-05 13:31:03,867 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 13:36:31,108 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 13:42:42,882 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]
+2024-07-05 13:42:58,523 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 883, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 902, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1174, in make_response
+    raise TypeError(
+TypeError: The view function for 'react' did not return a valid response. The function either returned None or ended without a return statement.
+2024-07-05 13:44:34,661 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:83]

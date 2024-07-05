@@ -1,11 +1,13 @@
+######IMPORTS########
 from datetime import datetime
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
+# Make database connection
 db = SQLAlchemy()
 
-
+# Create a table for many-to-many relationship between posts and tags
 post_tags = db.Table(
     "post_tags",
     db.Column("post_id", db.Integer, db.ForeignKey("post.id"), primary_key=True),
@@ -13,6 +15,7 @@ post_tags = db.Table(
 )
 
 
+# Create Post Model
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -20,6 +23,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     media_filename = db.Column(db.String(100), nullable=True)
     author = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    reactions = db.relationship("Reaction", backref="post", lazy="dynamic")
     tags = db.relationship(
         "Tag", secondary=post_tags, backref=db.backref("posts", lazy="dynamic")
     )
@@ -28,6 +32,7 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
+# Create Comment Model
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
@@ -39,6 +44,7 @@ class Comment(db.Model):
         return f"Comment('{self.content}', '{self.date_posted}')"
 
 
+# Create User Model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
@@ -56,6 +62,7 @@ class User(UserMixin, db.Model):
         return f"User('{self.username}', '{self.email}', {self.role})"
 
 
+# Create Media Model
 class Media(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(100), nullable=False)
@@ -67,6 +74,7 @@ class Media(db.Model):
         return f"Media('{self.filename}', '{self.filetype}', '{self.date_uploaded}')"
 
 
+# Create Tag Model
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, unique=True)
@@ -74,3 +82,14 @@ class Tag(db.Model):
 
     def __repr__(self):
         return f"<Tag {self.name}>"
+
+
+# Create Reaction Model
+class Reaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    reaction = db.Column(db.String(10), nullable=False)
+
+    def __repr__(self):
+        return f"Reaction('{self.user_id}', '{self.post_id}', '{self.reaction}')"

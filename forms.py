@@ -1,7 +1,14 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
-from wtforms import PasswordField, StringField, SubmitField, TextAreaField
-from wtforms.validators import URL, DataRequired, Email, EqualTo, Length
+from wtforms import HiddenField, PasswordField, StringField, SubmitField, TextAreaField
+from wtforms.validators import (  # noqa: F401
+    URL,
+    DataRequired,
+    Email,
+    EqualTo,
+    InputRequired,
+    Length,
+)
 
 # List of allowed file extensions
 ALLOWED_EXTENSIONS = {
@@ -88,3 +95,10 @@ class UpdateProfileForm(FlaskForm):
 class TagForm(FlaskForm):
     name = StringField("Tag Name", validators=[DataRequired()])
     submit = SubmitField("Save")
+
+
+# Create Reaction Form
+class ReactionForm(FlaskForm):
+    post_id = HiddenField("post_id", validators=[DataRequired()])
+    reaction_type = HiddenField("reaction_type", validators=[DataRequired()])
+    submit = SubmitField("React")

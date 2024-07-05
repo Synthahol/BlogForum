@@ -10,6 +10,7 @@ from flask import (
     abort,
     current_app,
     flash,
+    jsonify,
     redirect,
     render_template,
     request,
@@ -23,6 +24,7 @@ from flask_login import (
     logout_user,
 )
 from flask_migrate import Migrate
+from flask_wtf.csrf import generate_csrf
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -31,11 +33,12 @@ from forms import (
     CommentForm,
     LoginForm,
     PostForm,
+    ReactionForm,
     RegistrationForm,
     TagForm,
     UpdateProfileForm,
 )
-from models import Comment, Post, Tag, User, db
+from models import Comment, Post, Reaction, Tag, User, db
 from utils import (
     allowed_file,
     read_docx,
@@ -52,6 +55,7 @@ from utils import (
 # Main application
 app = Flask(__name__)
 app.config.from_object(Config)
+
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
@@ -242,13 +246,17 @@ def upload_file():
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
-    form = CommentForm()
-    if form.validate_on_submit():
+    comment_form = CommentForm()
+    reaction_form = ReactionForm()
+    reaction_form.post_id.data = post_id  # Explicitly set the post_id
+    if comment_form.validate_on_submit():
         if not current_user.is_authenticated:
             flash("You need to be logged in to comment.", "danger")
             return redirect(url_for("login"))
         comment = Comment(
-            content=form.comment.data, author=current_user.username, post_id=post.id
+            content=comment_form.comment.data,
+            author=current_user.username,
+            post_id=post.id,
         )
         db.session.add(comment)
         db.session.commit()
@@ -261,10 +269,13 @@ def view_post(post_id):
     )
     return render_template(
         "view_post.html",
+        title=post.title,
         post=post,
-        form=form,
+        form=comment_form,  # This is for comments
+        reaction_form=reaction_form,  # This is for reactions
         comments=comments,
         content=sanitized_content,
+        csrf_token=generate_csrf(),
     )
 
 
@@ -431,6 +442,51 @@ def delete_tag(tag_id):
     db.session.commit()
     flash("Tag deleted successfully", "success")
     return redirect(url_for("manage_tags"))
+
+
+########### REACTIONS ###############
+# Reaction routing/viewing
+
+
+@app.route("/react", methods=["POST"])
+@login_required
+def react():
+    form = ReactionForm()
+    if form.validate_on_submit():
+        try:
+            post_id = int(form.post_id.data)
+        except (ValueError, TypeError):
+            post_id = None
+            flash("Invalid post ID.", "danger")
+            return redirect(url_for("home"))
+
+        existing_reaction = Reaction.query.filter_by(
+            user_id=current_user.id, post_id=post_id
+        ).first()
+        if existing_reaction:
+            existing_reaction.reaction = (
+                form.reaction_type.data
+            )  # Ensure this matches the form field name
+        else:
+            reaction = Reaction(
+                user_id=current_user.id,
+                post_id=post_id,
+                reaction=form.reaction_type.data,  # Ensure this matches the form field name
+            )
+            db.session.add(reaction)
+        db.session.commit()
+        return jsonify(
+            status="success",
+            likeCount=Reaction.query.filter_by(
+                post_id=post_id, reaction="like"
+            ).count(),
+            dislikeCount=Reaction.query.filter_by(
+                post_id=post_id, reaction="dislike"
+            ).count(),
+        )
+    else:
+        flash("Failed to process your reaction.", "danger")
+        return jsonify(status="error", message=form.errors)
 
 
 ###############SEND IT################
