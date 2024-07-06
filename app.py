@@ -25,6 +25,7 @@ from flask_login import (
 )
 from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
+from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -108,6 +109,16 @@ def admin_required(f):
 def slugify(string):
     string = re.sub(r"[^\w\s-]", "", string).strip().lower()
     return re.sub(r"[-\s]+", "-", string)
+
+
+def generate_unique_slug(name):
+    slug = slugify(name)
+    original_slug = slug
+    count = 1
+    while Tag.query.filter_by(slug=slug).first() is not None:
+        slug = f"{original_slug}-{count}"
+        count += 1
+    return slug
 
 
 ######### ROUTES #############
@@ -195,13 +206,24 @@ def new_post():
         for name in tag_names:
             tag = Tag.query.filter_by(name=name).first()
             if tag is None:
-                tag = Tag(name=name)
+                slug = generate_unique_slug(name)
+                tag = Tag(name=name, slug=slug)
                 db.session.add(tag)
             tags.append(tag)
         post.tags = tags
 
         db.session.add(post)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            current_app.logger.error(
+                f"Integrity error while creating post: {post.title}"
+            )
+            flash(
+                "An error occurred while creating the post. Please try again.", "danger"
+            )
+            return redirect(url_for("new_post"))
 
         current_app.logger.info(f"Post created: {post.title}")
 
