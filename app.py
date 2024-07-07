@@ -1,10 +1,15 @@
 ######### IMPORTS #############
+
+# system imports
 import logging
 import os
 import re
 from functools import wraps
 from logging.handlers import RotatingFileHandler
 
+from dotenv import load_dotenv
+
+# Flask functions
 from flask import (
     Flask,
     abort,
@@ -16,6 +21,14 @@ from flask import (
     request,
     url_for,
 )
+
+# Import security functions
+from flask_bcrypt import Bcrypt
+from flask_caching import Cache
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+# flask_login functions
 from flask_login import (
     LoginManager,
     current_user,
@@ -23,13 +36,16 @@ from flask_login import (
     login_user,
     logout_user,
 )
+
+# Extra flask-y functions
 from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-from config import Config
+# Import our configuration
+# Import our custom forms
 from forms import (
     CommentForm,
     LoginForm,
@@ -39,7 +55,11 @@ from forms import (
     TagForm,
     UpdateProfileForm,
 )
+
+# Import our models
 from models import Comment, Post, Reaction, Tag, User, db
+
+# Import our custom functions from utils
 from utils import (
     allowed_file,
     read_docx,
@@ -53,9 +73,16 @@ from utils import (
 
 ##############CONFIGURATIONS ###############
 
+# Load environment variables from a .env file
+load_dotenv()
+
 # Main application
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config.from_object("config.Config")
+
+# Set up cache configuration
+app.config["CACHE_TYPE"] = "simple"  # Simple in-memory cache
+cache = Cache(app)
 
 
 # Initialize logging
@@ -83,6 +110,14 @@ if not app.debug:
 
     app.logger.setLevel(logging.INFO)
     app.logger.info("Blog startup")
+
+# Initialize Bcrypt
+bcrypt = Bcrypt(app)
+
+# Initialize Limiter
+limiter = Limiter(
+    app=app, key_func=get_remote_address, default_limits=["200 per day", "50 per hour"]
+)
 
 
 ########### DEFINE FUNCTIONS ##################
@@ -127,6 +162,7 @@ def generate_unique_slug(name):
 # Pagination routing
 @app.route("/", methods=["GET"])
 @app.route("/page/<int:page>", methods=["GET"])
+@cache.cached(timeout=60)  # Cache for 60 seconds
 def home(page=1):
     per_page = 10
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(
@@ -185,6 +221,7 @@ def logout():
 # New_Post routing
 @app.route("/new_post", methods=["GET", "POST"])
 @login_required
+@limiter.limit("10 per minute")
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
@@ -192,10 +229,14 @@ def new_post():
         if form.media.data:
             filename = save_media(form.media.data)
 
+        # Sanitize title and content
+        sanitized_title = sanitize_and_render_markdown(form.title.data)
+        sanitized_content = sanitize_and_render_markdown(form.content.data)
+
         # Create the post object
         post = Post(
-            title=form.title.data,
-            content=form.content.data,
+            title=sanitized_title,
+            content=sanitized_content,
             media_filename=filename,
             author=current_user.username,
         )
@@ -265,6 +306,7 @@ def upload_file():
 
 # View_Post page routing
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
+@cache.cached(timeout=60)  # Cache for 60 seconds
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
@@ -397,6 +439,7 @@ def profile(username):
 
 # define tags
 @app.route("/tag/<slug>")
+@cache.cached(timeout=60)  # Cache for 60 seconds
 def tag(slug):
     tag = Tag.query.filter_by(slug=slug).first_or_404()
     page = request.args.get("page", 1, type=int)
@@ -472,6 +515,7 @@ def delete_tag(tag_id):
 
 @app.route("/react", methods=["POST"])
 @login_required
+@limiter.limit("10 per minute")
 def react():
     form = ReactionForm()
     if form.validate_on_submit():
