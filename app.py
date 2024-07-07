@@ -71,26 +71,27 @@ from utils import (
     save_media,
 )
 
-##############CONFIGURATIONS ###############
+############## CONFIGURATIONS and INITIALIZATIONS ###############
 
 # Load environment variables from a .env file
 load_dotenv()
 
-# Main application
+# Create Flask instance and configure it
 app = Flask(__name__)
 app.config.from_object("config.Config")
 
-# Initialize cache
+# Initialize caching
 cache = Cache(app)
-
 
 # Initialize logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# initialize database
 db.init_app(app)
 migrate = Migrate(app, db)
 
+# initialize login manager
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
@@ -156,6 +157,16 @@ def generate_unique_slug(name):
 
 
 ######### ROUTES #############
+
+
+# Search function routing
+@app.route("/search")
+def search_results():
+    query = request.args.get("q")
+    results = Post.query.filter(
+        (Post.title.ilike(f"%{query}%")) | (Post.content.ilike(f"%{query}%"))
+    ).all()
+    return render_template("search_results.html", query=query, results=results)
 
 
 # Pagination routing

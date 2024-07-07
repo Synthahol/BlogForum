@@ -1,10 +1,10 @@
-2024-07-06 10:51:41,637 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-06 11:00:56,481 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
     cursor.execute(statement, parameters)
-sqlite3.IntegrityError: NOT NULL constraint failed: tag.slug
+sqlite3.IntegrityError: UNIQUE constraint failed: tag.slug
 
 The above exception was the direct cause of the following exception:
 
@@ -83,8 +83,8 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
     cursor.execute(statement, parameters)
 sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(sqlite3.IntegrityError) NOT NULL constraint failed: tag.slug
+(sqlite3.IntegrityError) UNIQUE constraint failed: tag.slug
 [SQL: INSERT INTO tag (name, slug) VALUES (?, ?)]
-[parameters: ('Lorem Ipsum', None)]
+[parameters: ('TESTING', 'testing')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-07-06 11:00:49,093 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:84]
+2024-07-06 11:08:09,377 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]

@@ -1,4 +1,4 @@
-2024-07-06 11:00:56,481 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-06 11:08:15,269 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
@@ -24,7 +24,7 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 196, in new_post
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 206, in new_post
     tag = Tag.query.filter_by(name=name).first()
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
@@ -87,4 +87,20 @@ sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; c
 [SQL: INSERT INTO tag (name, slug) VALUES (?, ?)]
 [parameters: ('TESTING', 'testing')]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-07-06 11:08:09,377 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]
+2024-07-06 11:10:17,501 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]
+2024-07-06 11:10:21,724 INFO: Post created: Testing testing 123 [in C:\Users\15097\Desktop\FinalBlog\app.py:228]
+2024-07-07 12:00:21,744 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]
+2024-07-07 14:04:02,305 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:107]
+2024-07-07 14:09:00,636 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:107]
+2024-07-07 14:11:57,878 INFO: Post created: Added stuff [in C:\Users\15097\Desktop\FinalBlog\app.py:263]
+2024-07-07 14:33:55,244 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:34:19,861 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:42:16,155 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:48:37,185 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:49:56,948 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:51:50,346 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:52:48,276 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:54:03,119 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 14:55:26,487 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-07 15:06:13,019 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:111]
+2024-07-07 15:34:06,516 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
