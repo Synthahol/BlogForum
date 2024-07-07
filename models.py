@@ -3,6 +3,7 @@ from datetime import datetime
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Index
 
 # Make database connection
 db = SQLAlchemy()
@@ -23,6 +24,7 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     media_filename = db.Column(db.String(100), nullable=True)
     author = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     reactions = db.relationship("Reaction", backref="post", lazy="dynamic")
     tags = db.relationship(
         "Tag", secondary=post_tags, backref=db.backref("posts", lazy="dynamic")
@@ -38,6 +40,7 @@ class Comment(db.Model):
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     author = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
@@ -54,6 +57,9 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.Text, nullable=True)
     social_media = db.Column(db.String(500), nullable=True)
     role = db.Column(db.String(50), nullable=False, default="user")
+    created_at = db.Column(db.DateTime, index=True)
+
+    __table_args__ = (Index("ix_username_email", "username", "email"),)
 
     def is_admin(self):
         return self.role == "admin"

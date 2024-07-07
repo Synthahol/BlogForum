@@ -34,3 +34,7 @@ class Config:
         "doc",
         "docs",
     }
+
+
+CACHE_TYPE = "simple"  # Simple in-memory cache
+CACHE_DEFAULT_TIMEOUT = 300

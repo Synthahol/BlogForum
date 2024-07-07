@@ -80,8 +80,7 @@ load_dotenv()
 app = Flask(__name__)
 app.config.from_object("config.Config")
 
-# Set up cache configuration
-app.config["CACHE_TYPE"] = "simple"  # Simple in-memory cache
+# Initialize cache
 cache = Cache(app)
 
 
