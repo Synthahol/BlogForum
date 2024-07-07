@@ -2,7 +2,16 @@
 {% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content
 %}
 <div class="container-fluid">
-  <h1 class="text-center mb-4">Welcome to my Blorum!</h1>
+  <div class="text-center mb-3">
+    <h1>Chris's Programming Blog/Forum</h1>
+  </div>
+  <div class="d-flex justify-content-center mb-3">
+    <a
+      class="nav-link btn btn-success text-white my-button"
+      href="{{ url_for('new_post') }}"
+      >Make a New Post!</a
+    >
+  </div>
 </div>
 <div class="container narrow-container">
   {% for post in posts.items %}

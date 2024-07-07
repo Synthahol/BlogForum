@@ -51,15 +51,6 @@
             id="navbarNavAltMarkup"
           >
             {% if current_user.is_authenticated %}
-            <div class="navbar-nav mx-auto">
-              <div class="nav-item" style="margin-left: 275px">
-                <a
-                  class="nav-link btn btn-success text-white"
-                  href="{{ url_for('new_post') }}"
-                  >Make a New Post!</a
-                >
-              </div>
-            </div>
             <div class="navbar-nav ms-auto d-flex align-items-center">
               <a
                 class="nav-link"
