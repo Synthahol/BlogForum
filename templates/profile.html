@@ -8,13 +8,13 @@ user.username }}{% endblock %} {% block content %}
     <div class="col-md-4">
       {% if user.avatar %}
       <img
-        src="{{ url_for('static', filename = 'profile_pics/' ~ user.avatar) }}"
+        src="{{ url_for('static', filename='profile_pics/' ~ user.avatar) }}"
         alt="Profile Picture"
         class="img-thumbnail"
       />
       {% else %}
       <img
-        src="{{ url_for('static', filename = 'profile_pics/default.jpg') }}"
+        src="{{ url_for('static', filename='profile_pics/default.jpg') }}"
         alt="Default Profile Picture"
         class="img-thumbnail"
       />

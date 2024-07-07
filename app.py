@@ -118,7 +118,8 @@ bcrypt = Bcrypt(app)
 limiter = Limiter(
     app=app, key_func=get_remote_address, default_limits=["200 per day", "50 per hour"]
 )
-
+# Ensure profile pics folder exits and is writeable
+os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
 
 ########### DEFINE FUNCTIONS ##################
 
@@ -154,6 +155,10 @@ def generate_unique_slug(name):
         slug = f"{original_slug}-{count}"
         count += 1
     return slug
+
+
+# Ensure upload folder exists
+os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
 
 
 ######### ROUTES #############
@@ -406,17 +411,17 @@ def delete_comment(comment_id):
     return redirect(url_for("view_post", post_id=comment.post_id))
 
 
+# User profile route
 @app.route("/profile/<username>", methods=["POST", "GET"])
-@login_required  # ensure user is logged in
+@login_required
 def profile(username):
     form = UpdateProfileForm()
     if form.validate_on_submit():
         if form.avatar.data:
             avatar_file = secure_filename(form.avatar.data.filename)
-            form.avatar.data.save(
-                os.path.join(app.config["UPLOAD_FOLDER"], avatar_file)
-            )
-            current_user.avatar = avatar_file
+            avatar_path = os.path.join(app.config["PROFILE_PICS_FOLDER"], avatar_file)
+            form.avatar.data.save(avatar_path)
+            current_user.avatar = avatar_file  # Only store the filename, not the path
         current_user.username = form.username.data
         current_user.bio = form.bio.data
         current_user.social_media = form.social_media.data
@@ -442,6 +447,9 @@ def profile(username):
     return render_template(
         "profile.html", user=user, form=form, posts=posts, comments=comments
     )
+
+
+# Ensure allowed_file function is defined
 
 
 ##################TAGGING AND SEO#################

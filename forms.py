@@ -84,7 +84,7 @@ class UpdateProfileForm(FlaskForm):
     )
     bio = TextAreaField("Bio", validators=[Length(max=500)])
     avatar = FileField(
-        "Update Profile Picture", validators=[FileAllowed(["jpg", "png"])]
+        "Update Profile Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])]
     )
     social_media = StringField(
         "Social Media Links", validators=[Length(max=500), URL()]
