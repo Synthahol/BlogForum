@@ -86,9 +86,6 @@ class UpdateProfileForm(FlaskForm):
     avatar = FileField(
         "Update Profile Picture", validators=[FileAllowed(["jpg", "png", "jpeg"])]
     )
-    social_media = StringField(
-        "Social Media Links", validators=[Length(max=500), URL()]
-    )
     submit = SubmitField("Update Profile")
 
 

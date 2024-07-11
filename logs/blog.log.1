@@ -1,13 +1,4 @@
-2024-07-06 11:08:15,269 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
-    self.dialect.do_execute(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
-    cursor.execute(statement, parameters)
-sqlite3.IntegrityError: UNIQUE constraint failed: tag.slug
-
-The above exception was the direct cause of the following exception:
-
+2024-07-11 19:16:36,591 ERROR: Exception on /profile/Chris [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -24,83 +15,116 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 206, in new_post
-    tag = Tag.query.filter_by(name=name).first()
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2728, in first
-    return self.limit(1)._iter().first()  # type: ignore
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
-    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
-                                                  ^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
-    return self._execute_internal(
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 434, in profile
+    form.social_media.data = current_user.social_media
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'social_media'
+2024-07-11 19:23:02,792 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 19:23:05,549 ERROR: Exception on /profile/Chris [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 433, in profile
+    form.social_media.data = current_user.social_media
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'social_media'
+2024-07-11 19:23:08,794 ERROR: Exception on /profile/Chris [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 433, in profile
+    form.social_media.data = current_user.social_media
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'social_media'
+2024-07-11 19:23:41,242 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 19:23:42,995 ERROR: Exception on /profile/Chris [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 436, in profile
+    Post.query.filter_by(author=user.username)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 1984, in filter_by
+    _entity_namespace_key(from_entity, key) == value
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\operators.py", line 582, in __eq__
+    return self.operate(eq, other)
            ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2215, in _execute_internal
-    ) = compile_state_cls.orm_pre_session_exec(
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 549, in orm_pre_session_exec
-    session._autoflush()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 3050, in _autoflush
-    raise e.with_traceback(sys.exc_info()[2])
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 3039, in _autoflush
-    self.flush()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4341, in flush
-    self._flush(objects)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4476, in _flush
-    with util.safe_reraise():
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4437, in _flush
-    flush_context.execute()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
-    rec.execute(self)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
-    util.preloaded.orm_persistence.save_obj(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
-    _emit_insert_statements(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
-    result = connection.execute(
-             ^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
-    return meth(
-           ^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
-    ret = self._execute_context(
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
-    return self._exec_single_context(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
-    self._handle_dbapi_exception(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2353, in _handle_dbapi_exception
-    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
-    self.dialect.do_execute(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
-(sqlite3.IntegrityError) UNIQUE constraint failed: tag.slug
-[SQL: INSERT INTO tag (name, slug) VALUES (?, ?)]
-[parameters: ('TESTING', 'testing')]
-(Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-07-06 11:10:17,501 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]
-2024-07-06 11:10:21,724 INFO: Post created: Testing testing 123 [in C:\Users\15097\Desktop\FinalBlog\app.py:228]
-2024-07-07 12:00:21,744 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:85]
-2024-07-07 14:04:02,305 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:107]
-2024-07-07 14:09:00,636 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:107]
-2024-07-07 14:11:57,878 INFO: Post created: Added stuff [in C:\Users\15097\Desktop\FinalBlog\app.py:263]
-2024-07-07 14:33:55,244 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:34:19,861 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:42:16,155 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:48:37,185 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:49:56,948 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:51:50,346 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:52:48,276 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:54:03,119 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 14:55:26,487 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-07 15:06:13,019 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:111]
-2024-07-07 15:34:06,516 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 453, in operate
+    return op(self.comparator, *other, **kwargs)  # type: ignore[no-any-return]  # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 762, in __eq__
+    self.property._optimized_compare(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1185, in _optimized_compare
+    raise sa_exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Mapped instance expected for relationship comparison to object.   Classes, queries and other SQL elements are not accepted in this context; for comparison with a subquery, use Post.author.has(**criteria).
+2024-07-11 19:23:47,975 ERROR: Exception on /profile/Chris [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 436, in profile
+    Post.query.filter_by(author=user.username)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 1984, in filter_by
+    _entity_namespace_key(from_entity, key) == value
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\operators.py", line 582, in __eq__
+    return self.operate(eq, other)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 453, in operate
+    return op(self.comparator, *other, **kwargs)  # type: ignore[no-any-return]  # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 762, in __eq__
+    self.property._optimized_compare(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1185, in _optimized_compare
+    raise sa_exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Mapped instance expected for relationship comparison to object.   Classes, queries and other SQL elements are not accepted in this context; for comparison with a subquery, use Post.author.has(**criteria).
+2024-07-11 19:24:20,759 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]

@@ -46,24 +46,15 @@ block content %}
   </div>
   {% endif %}
 
-  <p>
-    <small
-      >Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{ post.author
-      }}</small
+  <p class="mt-5">
+    <small class="text-muted"
+      >Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{
+      post.author.username }}</small
     >
   </p>
 
-  <div>
-    <h6>Tags:</h6>
-    {% for tag in post.tags %}
-    <a href="{{ url_for('tag', slug=tag.slug) }}" class="badge badge-primary"
-      >{{ tag.name }}</a
-    >
-    {% endfor %}
-  </div>
-
-  {% if current_user.is_authenticated and (current_user.username == post.author
-  or current_user.role == 'admin') %}
+  {% if current_user.is_authenticated and (current_user.username ==
+  post.author.username or current_user.role == 'admin') %}
   <a
     href="{{ url_for('update_post', post_id=post.id) }}"
     class="btn btn-secondary"
@@ -78,21 +69,26 @@ block content %}
   </form>
   {% endif %}
 
-  <div class="mt-4" id="reaction-buttons">
+  <div class="mt-5">
+    <h6>Tags:</h6>
+    {% for tag in post.tags %}
+    <a href="{{ url_for('tag', slug=tag.slug) }}" class="badge badge-primary"
+      >{{ tag.name }}</a
+    >
+    {% endfor %}
+  </div>
+
+  <div class="my-3" id="reaction-buttons">
     <form id="reaction-form">
       {{ reaction_form.hidden_tag() }} {{ reaction_form.post_id(value=post.id)
       }}
       <input type="hidden" name="reaction_type" id="reaction_type" />
-      <button type="button" class="btn btn-primary" onclick="react('like')">
+      <button type="button" class="btn btn-success" onclick="react('like')">
         Like (<span id="like-count"
           >{{ post.reactions.filter_by(reaction='like').count() }}</span
         >)
       </button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        onclick="react('dislike')"
-      >
+      <button type="button" class="btn btn-danger" onclick="react('dislike')">
         Dislike (<span id="dislike-count"
           >{{ post.reactions.filter_by(reaction='dislike').count() }}</span
         >)
@@ -100,19 +96,19 @@ block content %}
     </form>
   </div>
 
-  <h2>Comments</h2>
+  <h2 class="mb-2">Comments:</h2>
   {% for comment in comments %}
   <div class="card mb-3">
     <div class="card-body">
       <p class="card-text">{{ comment.content }}</p>
       <p class="card-text">
         <small class="text-muted"
-          >Posted by {{ comment.author }} on {{
+          >Posted by {{ comment.author.username }} on {{
           comment.date_posted.strftime('%Y-%m-%d') }}</small
         >
       </p>
       {% if current_user.is_authenticated and (current_user.username ==
-      comment.author or current_user.role == 'admin') %}
+      comment.author.username or current_user.role == 'admin') %}
       <form
         method="POST"
         action="{{ url_for('delete_comment', comment_id=comment.id) }}"
@@ -123,11 +119,12 @@ block content %}
       {% endif %}
     </div>
   </div>
+  <br />
   {% endfor %} {% if current_user.is_authenticated %}
-  <h2>Add a Comment</h2>
+  <h2>Add a Comment:</h2>
   <form method="POST">
     {{ form.hidden_tag() }}
-    <div class="mb-3">
+    <div>
       {{ form.comment.label(class="form-label") }} {{
       form.comment(class="form-control") }}
     </div>

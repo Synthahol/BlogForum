@@ -1,37 +1,44 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 {% extends "base.html" %} {% block title %}New Post{% endblock %} {% block
 content %}
 <div class="container mt-5">
-  <h1>Create a New Post</h1>
-  <form
-    method="POST"
-    action="{{ url_for('new_post') }}"
-    enctype="multipart/form-data"
-  >
-    {{ form.hidden_tag() }}
-    <div class="mb-3">
-      {{ form.title.label(class="form-label") }} {{
-      form.title(class="form-control") }}
+  <div class="card">
+    <div class="card-header text-center">
+      <h1>Create a New Post</h1>
     </div>
-    <div class="mb-3">
-      {{ form.content.label(class="form-label") }} {{
-      form.content(class="form-control") }}
+    <div class="card-body">
+      <form
+        method="POST"
+        action="{{ url_for('new_post') }}"
+        enctype="multipart/form-data"
+      >
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.title.label(class="form-label") }} {{
+          form.title(class="form-control") }}
+        </div>
+        <div class="mb-3">
+          {{ form.content.label(class="form-label") }} {{
+          form.content(class="form-control") }}
+        </div>
+        <div class="mb-3">
+          {{ form.tags.label(class="form-label") }} {{
+          form.tags(class="form-control") }}
+        </div>
+        <div class="mb-3">
+          {{ form.media.label(class="form-label") }} {{
+          form.media(class="form-control") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      {% if content %}
+      <div class="mt-4">
+        <h2>Document Content:</h2>
+        <pre>{{ content }}</pre>
+      </div>
+      {% endif %}
     </div>
-    <div class="mb-3">
-      {{ form.tags.label(class="form-label") }} {{
-      form.tags(class="form-control") }}
-    </div>
-    <div class="mb-3">
-      {{ form.media.label(class="form-label") }} {{
-      form.media(class="form-control") }}
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  {% if content %}
-  <div class="mt-4">
-    <h2>Document Content:</h2>
-    <pre>{{ content }}</pre>
   </div>
-  {% endif %}
 </div>
 {% endblock %}

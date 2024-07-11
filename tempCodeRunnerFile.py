@@ -253,7 +253,7 @@ def new_post():
             title=sanitized_title,
             content=sanitized_content,
             media_filename=filename,
-            author=current_user,
+            author=current_user.username,
         )
 
         # Handle tags
@@ -424,17 +424,25 @@ def profile(username):
             current_user.avatar = avatar_file  # Only store the filename, not the path
         current_user.username = form.username.data
         current_user.bio = form.bio.data
+        current_user.social_media = form.social_media.data
         db.session.commit()
         flash("Your profile has been updated!", "success")
         return redirect(url_for("profile", username=current_user.username))
     elif request.method == "GET":
         form.username.data = current_user.username
         form.bio.data = current_user.bio
+        form.social_media.data = current_user.social_media
 
     user = User.query.filter_by(username=username).first_or_404()
-    posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).all()
+    posts = (
+        Post.query.filter_by(author=user.username)
+        .order_by(Post.date_posted.desc())
+        .all()
+    )
     comments = (
-        Comment.query.filter_by(author=user).order_by(Comment.date_posted.desc()).all()
+        Comment.query.filter_by(author=user.username)
+        .order_by(Comment.date_posted.desc())
+        .all()
     )
     return render_template(
         "profile.html", user=user, form=form, posts=posts, comments=comments

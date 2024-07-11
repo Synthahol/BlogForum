@@ -1,10 +1,10 @@
-2024-07-05 17:04:07,384 ERROR: Exception on /new_post [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-11 18:05:54,516 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
     cursor.execute(statement, parameters)
-sqlite3.IntegrityError: NOT NULL constraint failed: tag.slug
+sqlite3.OperationalError: no such column: post.author
 
 The above exception was the direct cause of the following exception:
 
@@ -21,45 +21,39 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 204, in new_post
-    db.session.commit()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\scoping.py", line 597, in commit
-    return self._proxied.commit()
-           ^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2017, in commit
-    trans.commit(_to_root=True)
-  File "<string>", line 2, in commit
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
-    ret_value = fn(self, *arg, **kw)
-                ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1302, in commit
-    self._prepare_impl()
-  File "<string>", line 2, in _prepare_impl
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
-    ret_value = fn(self, *arg, **kw)
-                ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1277, in _prepare_impl
-    self.session.flush()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4341, in flush
-    self._flush(objects)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4476, in _flush
-    with util.safe_reraise():
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4437, in _flush
-    flush_context.execute()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
-    rec.execute(self)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
-    util.preloaded.orm_persistence.save_obj(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
-    _emit_insert_statements(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
-    result = connection.execute(
-             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 426, in decorated_function
+    rv = self._call_fn(f, *args, **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 185, in _call_fn
+    return ensure_sync(fn)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 183, in home
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_sqlalchemy\query.py", line 98, in paginate
+    return QueryPagination(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_sqlalchemy\pagination.py", line 72, in __init__
+    items = self._query_items()
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_sqlalchemy\pagination.py", line 358, in _query_items
+    out = query.limit(self.per_page).offset(self._query_offset).all()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2673, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 2827, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2351, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2236, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
     return meth(
            ^^^^^
@@ -80,8 +74,12 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: tag.slug
-[SQL: INSERT INTO tag (name, slug) VALUES (?, ?)]
-[parameters: ('test', None)]
-(Background on this error at: https://sqlalche.me/e/20/gkpj)
-2024-07-06 10:49:11,639 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:84]
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such column: post.author
+[SQL: SELECT post.id AS post_id, post.title AS post_title, post.date_posted AS post_date_posted, post.content AS post_content, post.media_filename AS post_media_filename, post.author AS post_author, post.user_id AS post_user_id 
+FROM post ORDER BY post.date_posted DESC
+ LIMIT ? OFFSET ?]
+[parameters: (10, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-07-11 18:07:56,073 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 18:18:42,021 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 18:28:03,656 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]

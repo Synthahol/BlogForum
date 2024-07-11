@@ -1,4 +1,4 @@
-2024-07-05 16:12:20,206 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-11 16:47:41,670 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,62 +12,49 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 469, in react
-    reaction = Reaction(
-               ^^^^^^^^^
-  File "<string>", line 4, in __init__
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
-    with util.safe_reraise():
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
-    manager.original_init(*mixed[1:], **kwargs)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2167, in _declarative_constructor
-    raise TypeError(
-TypeError: 'reaction_type' is an invalid keyword argument for Reaction
-2024-07-05 16:12:29,728 ERROR: Exception on /react [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_login\utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 469, in react
-    reaction = Reaction(
-               ^^^^^^^^^
-  File "<string>", line 4, in __init__
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
-    with util.safe_reraise():
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
-    manager.original_init(*mixed[1:], **kwargs)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2167, in _declarative_constructor
-    raise TypeError(
-TypeError: 'reaction_type' is an invalid keyword argument for Reaction
-2024-07-05 16:14:29,855 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:84]
-2024-07-05 16:14:35,135 ERROR: Exception on /post/15 [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\base.py", line 2181, in _entity_namespace_key
-    return getattr(ns, key)  # type: ignore
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 426, in decorated_function
+    rv = self._call_fn(f, *args, **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 185, in _call_fn
+    return ensure_sync(fn)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 183, in home
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(
+            ^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
            ^^^^^^^^^^^^^^^^
-AttributeError: type object 'Reaction' has no attribute 'reaction'
-
-The above exception was the direct cause of the following exception:
-
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 389, in expect
+    insp._post_inspect
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2711, in _post_inspect
+    self._check_configure()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2388, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4204, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4245, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2405, in _post_configure_properties
+    prop.init()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 584, in init
+    self.do_init()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1647, in do_init
+    self._generate_backref()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2075, in _generate_backref
+    raise sa_exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Error creating backref 'author' on relationship 'User.posts': property of that name exists on mapper 'Mapper[Post(post)]'
+2024-07-11 16:53:10,371 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 16:53:18,865 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 16:53:29,459 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 16:53:34,584 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 16:53:37,239 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -81,31 +68,42 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 270, in view_post
-    return render_template(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 426, in decorated_function
+    rv = self._call_fn(f, *args, **kwargs)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 185, in _call_fn
+    return ensure_sync(fn)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 183, in home
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(
+            ^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_sqlalchemy\model.py", line 22, in __get__
+    return cls.query_class(
            ^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 2, in top-level template code
-    {% extends "base.html" %} {% block title %}{{ post.title }}{% endblock %} {%
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 104, in top-level template code
-    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\templates\view_post.html", line 88, in block 'content'
-    >{{ post.reactions.filter_by(reaction='like').count() }}</span
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 1984, in filter_by
-    _entity_namespace_key(from_entity, key) == value
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\base.py", line 2183, in _entity_namespace_key
-    raise exc.InvalidRequestError(
-sqlalchemy.exc.InvalidRequestError: Entity namespace for "reaction" has no property "reaction"
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 275, in __init__
+    self._set_entities(entities)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\query.py", line 288, in _set_entities
+    coercions.expect(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\coercions.py", line 389, in expect
+    insp._post_inspect
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 1253, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+                                           ^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2711, in _post_inspect
+    self._check_configure()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2388, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4204, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4245, in _do_configure_registries
+    mapper._post_configure_properties()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2405, in _post_configure_properties
+    prop.init()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 584, in init
+    self.do_init()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1647, in do_init
+    self._generate_backref()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2075, in _generate_backref
+    raise sa_exc.ArgumentError(
+sqlalchemy.exc.ArgumentError: Error creating backref 'posts' on relationship 'Post.author': property of that name exists on mapper 'Mapper[User(user)]'
+2024-07-11 16:58:56,163 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]

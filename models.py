@@ -1,4 +1,3 @@
-######IMPORTS########
 from datetime import datetime
 
 from flask_login import UserMixin
@@ -23,11 +22,11 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     media_filename = db.Column(db.String(100), nullable=True)
-    author = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    author = db.relationship("User", backref=db.backref("user_posts", lazy=True))
     reactions = db.relationship("Reaction", backref="post", lazy="dynamic")
     tags = db.relationship(
-        "Tag", secondary=post_tags, backref=db.backref("posts", lazy="dynamic")
+        "Tag", secondary=post_tags, backref=db.backref("tagged_posts", lazy="dynamic")
     )
 
     def __repr__(self):
@@ -41,7 +40,7 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    author = db.Column(db.String(100), nullable=False)
+    author = db.relationship("User", backref=db.backref("user_comments", lazy=True))
 
     def __repr__(self):
         return f"Comment('{self.content}', '{self.date_posted}')"
@@ -52,14 +51,15 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
+    password = db.Column(db.String(60), nullable=False)
     avatar = db.Column(
         db.String(255), nullable=True, default="static/profile_pics/default.jpg"
     )
     bio = db.Column(db.Text, nullable=True)
-    social_media = db.Column(db.String(500), nullable=True)
     role = db.Column(db.String(50), nullable=False, default="user")
     created_at = db.Column(db.DateTime, index=True)
+    posts = db.relationship("Post", backref="post_author", lazy=True)
+    comments = db.relationship("Comment", backref="comment_author", lazy=True)
 
     __table_args__ = (Index("ix_username_email", "username", "email"),)
 
@@ -77,6 +77,7 @@ class Media(db.Model):
     filetype = db.Column(db.String(20), nullable=False)
     date_uploaded = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    uploader = db.relationship("User", backref=db.backref("user_media", lazy=True))
 
     def __repr__(self):
         return f"Media('{self.filename}', '{self.filetype}', '{self.date_uploaded}')"
