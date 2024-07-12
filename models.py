@@ -25,9 +25,13 @@ class Post(db.Model):
     media_filename = db.Column(db.String(100), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     author = db.relationship("User", back_populates="posts")
-    reactions = db.relationship("Reaction", back_populates="post", lazy="dynamic")
+    reactions = db.relationship(
+        "Reaction", back_populates="post", lazy="dynamic", cascade="all, delete-orphan"
+    )
     tags = db.relationship("Tag", secondary=post_tags, back_populates="tagged_posts")
-    comments = db.relationship("Comment", back_populates="post", lazy="dynamic")
+    comments = db.relationship(
+        "Comment", back_populates="post", lazy="dynamic", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -59,10 +63,18 @@ class User(UserMixin, db.Model):
     bio = db.Column(db.Text, nullable=True)
     role = db.Column(db.String(50), nullable=False, default="user")
     created_at = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    posts = db.relationship("Post", back_populates="author", lazy=True)
-    comments = db.relationship("Comment", back_populates="author", lazy=True)
-    media = db.relationship("Media", back_populates="uploader", lazy=True)
-    reactions = db.relationship("Reaction", back_populates="user", lazy=True)
+    posts = db.relationship(
+        "Post", back_populates="author", lazy=True, cascade="all, delete-orphan"
+    )
+    comments = db.relationship(
+        "Comment", back_populates="author", lazy=True, cascade="all, delete-orphan"
+    )
+    media = db.relationship(
+        "Media", back_populates="uploader", lazy=True, cascade="all, delete-orphan"
+    )
+    reactions = db.relationship(
+        "Reaction", back_populates="user", lazy=True, cascade="all, delete-orphan"
+    )
 
     __table_args__ = (Index("ix_username_email", "username", "email"),)
 
