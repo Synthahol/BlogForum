@@ -68,7 +68,9 @@ app.config.from_object("config.Config")
 cache = Cache(app)
 bcrypt = Bcrypt(app)
 limiter = Limiter(
-    app=app, key_func=get_remote_address, default_limits=["200 per day", "50 per hour"]
+    app=app,
+    key_func=get_remote_address,
+    storage_uri=app.config["RATELIMIT_STORAGE_URL"],
 )
 db.init_app(app)
 migrate = Migrate(app, db)
