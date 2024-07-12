@@ -8,7 +8,11 @@ from wtforms.validators import (  # noqa: F401
     EqualTo,
     InputRequired,
     Length,
+    Regexp,
+    ValidationError,
 )
+
+from models import User
 
 # List of allowed file extensions
 ALLOWED_EXTENSIONS = {
@@ -45,11 +49,52 @@ class RegistrationForm(FlaskForm):
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
     )
     email = StringField("Email", validators=[DataRequired(), Email()])
-    password = PasswordField("Password", validators=[DataRequired()])
+    password = PasswordField(
+        "Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, max=128),
+            Regexp(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$",
+                message="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.",
+            ),
+        ],
+    )
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
     submit = SubmitField("Sign Up")
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError(
+                "That username is taken. Please choose a different one."
+            )
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError("That email is taken. Please choose a different one.")
+
+
+class ChangePasswordForm(FlaskForm):
+    old_password = PasswordField("Old Password", validators=[DataRequired()])
+    new_password = PasswordField(
+        "New Password",
+        validators=[
+            DataRequired(),
+            Length(min=8, max=128),
+            Regexp(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$",
+                message="Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.",
+            ),
+        ],
+    )
+    confirm_new_password = PasswordField(
+        "Confirm New Password", validators=[DataRequired(), EqualTo("new_password")]
+    )
+    submit = SubmitField("Change Password")
 
 
 class LoginForm(FlaskForm):
@@ -74,7 +119,7 @@ class PostForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
-    comment = TextAreaField("Comment:", validators=[DataRequired()])
+    comment = TextAreaField("", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 

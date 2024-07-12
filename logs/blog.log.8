@@ -1,4 +1,4 @@
-2024-07-11 16:47:41,670 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-11 17:32:19,987 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -39,22 +39,14 @@ Traceback (most recent call last):
     _configure_registries({self.registry}, cascade=True)
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4204, in _configure_registries
     _do_configure_registries(registries, cascade)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4245, in _do_configure_registries
-    mapper._post_configure_properties()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 2405, in _post_configure_properties
-    prop.init()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\interfaces.py", line 584, in init
-    self.do_init()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 1647, in do_init
-    self._generate_backref()
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2075, in _generate_backref
-    raise sa_exc.ArgumentError(
-sqlalchemy.exc.ArgumentError: Error creating backref 'author' on relationship 'User.posts': property of that name exists on mapper 'Mapper[Post(post)]'
-2024-07-11 16:53:10,371 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-11 16:53:18,865 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-11 16:53:29,459 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-11 16:53:34,584 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-11 16:53:37,239 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\mapper.py", line 4241, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Post(post)]'. Original exception was: Error creating backref 'posts_authored' on relationship 'Post.author': property of that name exists on mapper 'Mapper[User(user)]'
+2024-07-11 17:40:00,962 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 17:44:12,991 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 17:46:00,758 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 17:51:41,332 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 17:51:44,965 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -106,4 +98,4 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\relationships.py", line 2075, in _generate_backref
     raise sa_exc.ArgumentError(
 sqlalchemy.exc.ArgumentError: Error creating backref 'posts' on relationship 'Post.author': property of that name exists on mapper 'Mapper[User(user)]'
-2024-07-11 16:58:56,163 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
+2024-07-11 17:58:58,203 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]

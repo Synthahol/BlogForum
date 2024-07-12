@@ -47,6 +47,7 @@ from werkzeug.utils import secure_filename
 # Import our configuration
 # Import our custom forms
 from forms import (
+    ChangePasswordForm,
     CommentForm,
     LoginForm,
     PostForm,
@@ -193,15 +194,40 @@ def signup():
         return redirect(url_for("home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data)
-        user = User(
-            username=form.username.data, email=form.email.data, password=hashed_password
-        )
-        db.session.add(user)
-        db.session.commit()
-        flash("Your account has been created!", "success")
-        return redirect(url_for("login"))
+        try:
+            hashed_password = generate_password_hash(form.password.data)
+            user = User(
+                username=form.username.data,
+                email=form.email.data,
+                password=hashed_password,
+            )
+            db.session.add(user)
+            db.session.commit()
+            flash("Your account has been created!", "success")
+            return redirect(url_for("login"))
+        except IntegrityError:
+            db.session.rollback()
+            flash(
+                "An error occurred. It's likely the username or email already exists.",
+                "danger",
+            )
     return render_template("signup.html", form=form)
+
+
+# Change password Routing
+@app.route("/change_password", methods=["POST", "GET"])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if not check_password_hash(current_user.password, form.old_password.data):
+            flash("Old password is incorrect.", "danger")
+        else:
+            current_user.password = generate_password_hash(form.new_password.data)
+            db.session.commit()
+            flash("Your password has been updated!", "success")
+            return redirect(url_for("profile"))  # Assuming there is a profile route
+    return render_template("change_password.html", form=form)
 
 
 ##############Login/Logout###############
@@ -334,8 +360,9 @@ def view_post(post_id):
             return redirect(url_for("login"))
         comment = Comment(
             content=comment_form.comment.data,
-            author=current_user.username,
+            author=current_user,
             post_id=post.id,
+            user_id=current_user.id,
         )
         db.session.add(comment)
         db.session.commit()

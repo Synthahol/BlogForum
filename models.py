@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Index
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Make database connection
 db = SQLAlchemy()
@@ -23,11 +24,10 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable=False)
     media_filename = db.Column(db.String(100), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    author = db.relationship("User", backref=db.backref("user_posts", lazy=True))
-    reactions = db.relationship("Reaction", backref="post", lazy="dynamic")
-    tags = db.relationship(
-        "Tag", secondary=post_tags, backref=db.backref("tagged_posts", lazy="dynamic")
-    )
+    author = db.relationship("User", back_populates="posts")
+    reactions = db.relationship("Reaction", back_populates="post", lazy="dynamic")
+    tags = db.relationship("Tag", secondary=post_tags, back_populates="tagged_posts")
+    comments = db.relationship("Comment", back_populates="post", lazy="dynamic")
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -40,7 +40,8 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    author = db.relationship("User", backref=db.backref("user_comments", lazy=True))
+    author = db.relationship("User", back_populates="comments")
+    post = db.relationship("Post", back_populates="comments")
 
     def __repr__(self):
         return f"Comment('{self.content}', '{self.date_posted}')"
@@ -51,23 +52,31 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(60), nullable=False)
+    password = db.Column(db.String(128), nullable=False)
     avatar = db.Column(
         db.String(255), nullable=True, default="static/profile_pics/default.jpg"
     )
     bio = db.Column(db.Text, nullable=True)
     role = db.Column(db.String(50), nullable=False, default="user")
-    created_at = db.Column(db.DateTime, index=True)
-    posts = db.relationship("Post", backref="post_author", lazy=True)
-    comments = db.relationship("Comment", backref="comment_author", lazy=True)
+    created_at = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    posts = db.relationship("Post", back_populates="author", lazy=True)
+    comments = db.relationship("Comment", back_populates="author", lazy=True)
+    media = db.relationship("Media", back_populates="uploader", lazy=True)
+    reactions = db.relationship("Reaction", back_populates="user", lazy=True)
 
     __table_args__ = (Index("ix_username_email", "username", "email"),)
 
     def is_admin(self):
         return self.role == "admin"
 
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', {self.role})"
+        return f"User('{self.username}', '{self.email}', '{self.role}')"
 
 
 # Create Media Model
@@ -77,7 +86,7 @@ class Media(db.Model):
     filetype = db.Column(db.String(20), nullable=False)
     date_uploaded = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    uploader = db.relationship("User", backref=db.backref("user_media", lazy=True))
+    uploader = db.relationship("User", back_populates="media")
 
     def __repr__(self):
         return f"Media('{self.filename}', '{self.filetype}', '{self.date_uploaded}')"
@@ -88,6 +97,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False, unique=True)
     slug = db.Column(db.String(50), nullable=False, unique=True)
+    tagged_posts = db.relationship("Post", secondary=post_tags, back_populates="tags")
 
     def __repr__(self):
         return f"<Tag {self.name}>"
@@ -99,6 +109,8 @@ class Reaction(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     reaction = db.Column(db.String(10), nullable=False)
+    user = db.relationship("User", back_populates="reactions")
+    post = db.relationship("Post", back_populates="reactions")
 
     def __repr__(self):
         return f"Reaction('{self.user_id}', '{self.post_id}', '{self.reaction}')"

@@ -104,7 +104,7 @@ block content %}
       <p class="card-text">
         <small class="text-muted"
           >Posted by {{ comment.author.username }} on {{
-          comment.date_posted.strftime('%Y-%m-%d') }}</small
+          comment.date_posted.strftime('%B %d, %Y') }}</small
         >
       </p>
       {% if current_user.is_authenticated and (current_user.username ==
@@ -121,15 +121,21 @@ block content %}
   </div>
   <br />
   {% endfor %} {% if current_user.is_authenticated %}
-  <h2>Add a Comment:</h2>
-  <form method="POST">
-    {{ form.hidden_tag() }}
-    <div>
-      {{ form.comment.label(class="form-label") }} {{
-      form.comment(class="form-control") }}
+  <h2 class="mb-1 mt-5">Add a Comment:</h2>
+  <div class="card mb-3">
+    <div class="card-body py-lg-0">
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+          {{ form.comment.label(class="form-label") }} {{
+          form.comment(class="form-control") }}
+        </div>
+        <div class="text-center mt-3">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  </div>
   {% else %}
   <p>You need to <a href="{{ url_for('login') }}">login</a> to comment.</p>
   {% endif %}

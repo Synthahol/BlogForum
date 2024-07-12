@@ -3,27 +3,33 @@
 content %}
 <div class="container mt-5">
   <h2 class="text-center mb-4">Login</h2>
-  <form action="{{ url_for('login') }}" method="post">
-    {{ form.hidden_tag()}}
-    <div class="mb-3">
-      {{ form.username.label(class="form-label") }} {{
-      form.username(class="form-control") }}
+  <div class="card">
+    <div class="card-body">
+      <form action="{{ url_for('login') }}" method="post">
+        {{ form.hidden_tag()}}
+        <div class="mb-3">
+          {{ form.username.label(class="form-label") }} {{
+          form.username(class="form-control") }}
+        </div>
+        <div class="mb-3">
+          {{ form.password.label(class='form-label') }} {{
+          form.password(class='form-control') }}
+        </div>
+        <div class="form-check mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="showPassword"
+            onclick="togglePassword()"
+          />
+          <label class="form-check-label" for="showPassword"
+            >Show Password</label
+          >
+        </div>
+        <button type="submit" class="btn btn-primary w-25">Login</button>
+      </form>
     </div>
-    <div class="mb-3">
-      {{ form.password.label(class='form-label') }} {{
-      form.password(class='form-control') }}
-    </div>
-    <div class="form-check mb-3">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        id="showPassword"
-        onclick="togglePassword()"
-      />
-      <label class="form-check-label" for="showPassword">Show Password</label>
-    </div>
-    <button type="submit" class="btn btn-primary w-25">Login</button>
-  </form>
+  </div>
 </div>
 <script>
   function togglePassword() {

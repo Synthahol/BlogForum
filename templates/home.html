@@ -9,13 +9,14 @@
     <a
       class="nav-link btn btn-success text-white my-button"
       href="{{ url_for('new_post') }}"
-      >Make a New Post!</a
     >
+      Make a New Post!
+    </a>
   </div>
 </div>
 <div class="container narrow-container">
   {% for post in posts.items %}
-  <div class="card mb-4 shadow-sm">
+  <div class="card mb-4 shadow-sm front-page">
     <div class="row g-0">
       <div class="col-md-9">
         <div class="card-body">
@@ -31,7 +32,7 @@
     </div>
     <div class="card-footer text-muted">
       Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{
-      post.post_author.username }}
+      post.author.username }}
     </div>
   </div>
   {% endfor %}
