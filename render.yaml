@@ -3,7 +3,7 @@ services:
     name: blogforum
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: gunicorn wsgi:app
     envVars:
       - key: FLASK_ENV
         value: production
@@ -13,5 +13,5 @@ services:
         value: sqlite:///site.db
       - key: REDIS_URL
         value: redis://red-cq8fv64s1f4s73cktc7g:6379
-    migrations:
-      - command: flask db upgrade
+migrations:
+  - command: flask db upgrade
