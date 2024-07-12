@@ -1,6 +1,3 @@
-######### IMPORTS #############
-
-# system imports
 import logging
 import os
 import re
@@ -8,8 +5,6 @@ from functools import wraps
 from logging.handlers import RotatingFileHandler
 
 from dotenv import load_dotenv
-
-# Flask functions
 from flask import (
     Flask,
     abort,
@@ -21,14 +16,10 @@ from flask import (
     request,
     url_for,
 )
-
-# Import security functions
 from flask_bcrypt import Bcrypt
 from flask_caching import Cache
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-
-# flask_login functions
 from flask_login import (
     LoginManager,
     current_user,
@@ -36,16 +27,12 @@ from flask_login import (
     login_user,
     logout_user,
 )
-
-# Extra flask-y functions
 from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-# Import our configuration
-# Import our custom forms
 from forms import (
     ChangePasswordForm,
     CommentForm,
@@ -56,11 +43,7 @@ from forms import (
     TagForm,
     UpdateProfileForm,
 )
-
-# Import our models
 from models import Comment, Post, Reaction, Tag, User, db
-
-# Import our custom functions from utils
 from utils import (
     allowed_file,
     read_docx,
@@ -74,27 +57,26 @@ from utils import (
 
 ############## CONFIGURATIONS and INITIALIZATIONS ###############
 
-# Load environment variables from a .env file
+# Load environment variables
 load_dotenv()
 
 # Create Flask instance and configure it
 app = Flask(__name__)
 app.config.from_object("config.Config")
 
-# Initialize caching
+# Initialize extensions
 cache = Cache(app)
-
-# Initialize logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# initialize database
+bcrypt = Bcrypt(app)
+limiter = Limiter(
+    app=app, key_func=get_remote_address, default_limits=["200 per day", "50 per hour"]
+)
 db.init_app(app)
 migrate = Migrate(app, db)
-
-# initialize login manager
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
+
+# Ensure profile pics folder exists
+os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
 
 # Configure logging
 if not app.debug:
@@ -108,30 +90,15 @@ if not app.debug:
     )
     file_handler.setLevel(logging.INFO)
     app.logger.addHandler(file_handler)
-
     app.logger.setLevel(logging.INFO)
     app.logger.info("Blog startup")
 
-# Initialize Bcrypt
-bcrypt = Bcrypt(app)
 
-# Initialize Limiter
-limiter = Limiter(
-    app=app, key_func=get_remote_address, default_limits=["200 per day", "50 per hour"]
-)
-# Ensure profile pics folder exits and is writeable
-os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
-
-########### DEFINE FUNCTIONS ##################
-
-
-# Define login manager function
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# Define admin required
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -142,30 +109,23 @@ def admin_required(f):
     return decorated_function
 
 
-# Define slugify for SEO purposes
 def slugify(string):
-    string = re.sub(r"[^\w\s-]", "", string).strip().lower()
-    return re.sub(r"[-\s]+", "-", string)
+    return re.sub(r"[-\s]+", "-", re.sub(r"[^\w\s-]", "", string).strip().lower())
 
 
 def generate_unique_slug(name):
     slug = slugify(name)
     original_slug = slug
     count = 1
-    while Tag.query.filter_by(slug=slug).first() is not None:
+    while Tag.query.filter_by(slug=slug).first():
         slug = f"{original_slug}-{count}"
         count += 1
     return slug
 
 
-# Ensure upload folder exists
-os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
-
-
 ######### ROUTES #############
 
 
-# Search function routing
 @app.route("/search")
 def search_results():
     query = request.args.get("q")
@@ -175,10 +135,9 @@ def search_results():
     return render_template("search_results.html", query=query, results=results)
 
 
-# Pagination routing
 @app.route("/", methods=["GET"])
 @app.route("/page/<int:page>", methods=["GET"])
-@cache.cached(timeout=60)  # Cache for 60 seconds
+@cache.cached(timeout=60)
 def home(page=1):
     per_page = 10
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(
@@ -187,7 +146,6 @@ def home(page=1):
     return render_template("home.html", posts=posts)
 
 
-# Signup page routing
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if current_user.is_authenticated:
@@ -214,7 +172,6 @@ def signup():
     return render_template("signup.html", form=form)
 
 
-# Change password Routing
 @app.route("/change_password", methods=["POST", "GET"])
 @login_required
 def change_password():
@@ -230,10 +187,6 @@ def change_password():
     return render_template("change_password.html", form=form)
 
 
-##############Login/Logout###############
-
-
-# Login Routing
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -249,17 +202,12 @@ def login():
     return render_template("login.html", form=form)
 
 
-# Logout Route
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for("home"))
 
 
-############## ALL POST ROUTINGS ###############
-
-
-# New_Post routing
 @app.route("/new_post", methods=["GET", "POST"])
 @login_required
 @limiter.limit("10 per minute")
@@ -314,7 +262,6 @@ def new_post():
     return render_template("add.html", form=form)
 
 
-# Upload_File Routing
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
@@ -345,9 +292,8 @@ def upload_file():
     return render_template("upload.html")
 
 
-# View_Post page routing
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
-@cache.cached(timeout=60)  # Cache for 60 seconds
+@cache.cached(timeout=60)
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
@@ -377,15 +323,14 @@ def view_post(post_id):
         "view_post.html",
         title=post.title,
         post=post,
-        form=comment_form,  # This is for comments
-        reaction_form=reaction_form,  # This is for reactions
+        form=comment_form,
+        reaction_form=reaction_form,
         comments=comments,
         content=sanitized_content,
         csrf_token=generate_csrf(),
     )
 
 
-# Update_post routing
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
 @login_required
 def update_post(post_id):
@@ -409,7 +354,6 @@ def update_post(post_id):
     )
 
 
-# Delete post routing
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def delete_post(post_id):
@@ -424,7 +368,6 @@ def delete_post(post_id):
     return redirect(url_for("home"))
 
 
-# Comment delete routing
 @app.route("/admin/delete_comment/<int:comment_id>", methods=["POST"])
 @login_required
 def delete_comment(comment_id):
@@ -438,7 +381,6 @@ def delete_comment(comment_id):
     return redirect(url_for("view_post", post_id=comment.post_id))
 
 
-# User profile route
 @app.route("/profile/<username>", methods=["POST", "GET"])
 @login_required
 def profile(username):
@@ -468,15 +410,8 @@ def profile(username):
     )
 
 
-# Ensure allowed_file function is defined
-
-
-##################TAGGING AND SEO#################
-
-
-# define tags
 @app.route("/tag/<slug>")
-@cache.cached(timeout=60)  # Cache for 60 seconds
+@cache.cached(timeout=60)
 def tag(slug):
     tag = Tag.query.filter_by(slug=slug).first_or_404()
     page = request.args.get("page", 1, type=int)
@@ -488,7 +423,6 @@ def tag(slug):
     return render_template("tag.html", tag=tag, posts=posts)
 
 
-# define managing tags routing
 @app.route("/admin/tags", methods=["GET", "POST"])
 @login_required
 def manage_tags():
@@ -498,7 +432,6 @@ def manage_tags():
     return render_template("admin_tags", tags=tags)
 
 
-# Create new tags
 @app.route("/admin/tags/new", methods=["POST", "GET"])
 @login_required
 def new_tag():
@@ -514,7 +447,6 @@ def new_tag():
     return render_template("new_tag.html", form=form)
 
 
-# Edit tags
 @app.route("/admin/tags/edit/<int:tag_id>", methods=["GET", "POST"])
 @login_required
 def edit_tag(tag_id):
@@ -533,7 +465,6 @@ def edit_tag(tag_id):
     return render_template("edit_tag.html", form=form)
 
 
-# Delete tags
 @app.route("/admin/tags/delete/<int:tag_id>", methods=["POST"])
 @login_required
 def delete_tag(tag_id):
@@ -544,10 +475,6 @@ def delete_tag(tag_id):
     db.session.commit()
     flash("Tag deleted successfully", "success")
     return redirect(url_for("manage_tags"))
-
-
-########### REACTIONS ###############
-# Reaction routing/viewing
 
 
 @app.route("/react", methods=["POST"])
@@ -592,6 +519,5 @@ def react():
         return jsonify(status="error", message=form.errors)
 
 
-###############SEND IT################
 if __name__ == "__main__":
     app.run(debug=True)

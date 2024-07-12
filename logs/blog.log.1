@@ -1,4 +1,92 @@
-2024-07-12 12:14:19,108 ERROR: Exception on /post/19 [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+2024-07-12 12:58:26,122 ERROR: Exception on /signup [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: user.email
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 202, in signup
+    db.session.commit()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\scoping.py", line 597, in commit
+    return self._proxied.commit()
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2017, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1302, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1277, in _prepare_impl
+    self.session.flush()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4341, in flush
+    self._flush(objects)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4476, in _flush
+    with util.safe_reraise():
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4437, in _flush
+    flush_context.execute()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2353, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\engine\default.py", line 924, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.email
+[SQL: INSERT INTO user (username, email, password, avatar, bio, role, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('test_account2', '85cawill@gmail.com', 'scrypt:32768:8:1$BWEDCTpUzGjyMhFE$d592ad7837418f5f1072c101a74b90e070cebea568211b54f9738716c0e72a8980d0d4d79012e68383eae2858dfbf592d5bacdd847a2833810396d4796f34bbf', 'static/profile_pics/default.jpg', None, 'user', None)]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-12 13:01:58,190 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:05:22,745 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:08:41,526 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:08:51,765 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:09:05,602 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:10:07,909 ERROR: Exception on / [GET] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
 Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -18,79 +106,35 @@ Traceback (most recent call last):
   File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_caching\__init__.py", line 185, in _call_fn
     return ensure_sync(fn)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 335, in view_post
-    comment = Comment(
-              ^^^^^^^^
-  File "<string>", line 4, in __init__
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 571, in _initialize_instance
-    with util.safe_reraise():
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
-    raise exc_value.with_traceback(exc_tb)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\state.py", line 569, in _initialize_instance
-    manager.original_init(*mixed[1:], **kwargs)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\decl_base.py", line 2170, in _declarative_constructor
-    setattr(self, k, kwargs[k])
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 537, in __set__
-    self.impl.set(
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 1467, in set
-    value = self.fire_replace_event(state, dict_, value, old, initiator)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 1506, in fire_replace_event
-    value = fn(
-            ^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\sqlalchemy\orm\attributes.py", line 2161, in emit_backref_from_scalar_set_event
-    instance_state(child),
-    ^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'str' object has no attribute '_sa_instance_state'
-2024-07-12 12:20:18,634 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:112]
-2024-07-12 12:38:51,412 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:39:15,963 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:40:13,263 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:43:03,671 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:43:18,624 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:43:30,433 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:44:01,719 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:45:50,145 ERROR: Exception on /signup [POST] [in C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py:838]
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\validators.py", line 401, in __call__
-    import email_validator
-ModuleNotFoundError: No module named 'email_validator'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 196, in signup
-    if form.validate_on_submit():
-       ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask_wtf\form.py", line 86, in validate_on_submit
-    return self.is_submitted() and self.validate(extra_validators=extra_validators)
-                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\form.py", line 329, in validate
-    return super().validate(extra)
+  File "C:\Users\15097\Desktop\FinalBlog\app.py", line 187, in home
+    return render_template("home.html", posts=posts)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\flask\templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\15097\Desktop\FinalBlog\templates\home.html", line 2, in top-level template code
+    {% extends 'base.html' %} {% block title %}Home{% endblock %} {% block content
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\base.html", line 113, in top-level template code
+    {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\templates\home.html", line 34, in block 'content'
+    post.post_author.username }}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\jinja2\environment.py", line 487, in getattr
+    return getattr(obj, attribute)
            ^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\form.py", line 146, in validate
-    if not field.validate(self, extra):
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\fields\core.py", line 246, in validate
-    stop_validation = self._run_validation_chain(form, chain)
-                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\fields\core.py", line 266, in _run_validation_chain
-    validator(form, self)
-  File "C:\Users\15097\Desktop\FinalBlog\venv\Lib\site-packages\wtforms\validators.py", line 403, in __call__
-    raise Exception(
-Exception: Install 'email_validator' for email validation support.
-2024-07-12 12:47:30,584 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:49:28,686 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
-2024-07-12 12:57:57,694 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+jinja2.exceptions.UndefinedError: 'models.Post object' has no attribute 'post_author'
+2024-07-12 13:46:42,035 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 13:47:48,332 INFO: Post created: Testing testing [in C:\Users\15097\Desktop\FinalBlog\app.py:310]
+2024-07-12 13:52:46,360 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 14:21:02,423 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 14:27:22,481 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
+2024-07-12 14:34:20,383 INFO: Blog startup [in C:\Users\15097\Desktop\FinalBlog\app.py:113]
