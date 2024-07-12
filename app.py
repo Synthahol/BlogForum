@@ -78,8 +78,16 @@ login_manager.login_view = "login"
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
 
-# Configure logging
+# Clear existing logs
 if not app.debug:
+    log_dir = "logs"
+    if os.path.exists(log_dir):
+        for log_file in os.listdir(log_dir):
+            file_path = os.path.join(log_dir, log_file)
+            if os.path.isfile(file_path):
+                open(file_path, "w").close()
+
+    # Configure logging
     if not os.path.exists("logs"):
         os.mkdir("logs")
     file_handler = RotatingFileHandler("logs/blog.log", maxBytes=10240, backupCount=10)
