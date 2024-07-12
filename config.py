@@ -38,6 +38,13 @@ class Config:
         "docs",
     }
 
+    # Cache configuration
+    CACHE_TYPE = "redis"
+    CACHE_REDIS_HOST = "localhost"
+    CACHE_REDIS_PORT = 6379
+    CACHE_REDIS_DB = 0
+    CACHE_REDIS_URL = "redis://localhost:6379/0"
+    CACHE_DEFAULT_TIMEOUT = 300
 
-CACHE_TYPE = "simple"  # Simple in-memory cache
-CACHE_DEFAULT_TIMEOUT = 300
+    # Rate limiting configuration
+    RATELIMIT_STORAGE_URL = "redis://localhost:6379/1"
