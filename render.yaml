@@ -2,6 +2,10 @@ services:
   - type: web
     name: BlogForum
     runtime: python
+    repo: https://github.com/Synthahol/BlogForum/tree/master
+    plan: starter
+    region: ohio
+    branch: master
     buildCommand: pip install -r requirements.txt
     startCommand: |
       flask db upgrade
@@ -15,3 +19,5 @@ services:
         value: sqlite:///site.db
       - key: REDIS_URL
         value: redis://red-cq8fv64s1f4s73cktc7g:6379
+    domains:
+      - www.spoxbox.com
