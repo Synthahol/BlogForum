@@ -12,7 +12,7 @@ endblock %} {% block content %}
     <p>
       <small
         >Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{
-        post.author }}</small
+        post.author.username }}</small
       >
     </p>
   </div>
