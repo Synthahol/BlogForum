@@ -104,8 +104,9 @@ if not app.debug:
     app.logger.info("Blog startup")
 
 
-def create_tables():
+with app.app_context():
     db.create_all()
+
 
 @login_manager.user_loader
 def load_user(user_id):
