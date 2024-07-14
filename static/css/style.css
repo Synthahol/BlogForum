@@ -147,3 +147,36 @@ h1 {
         max-width: 100%;
     }
 }
+
+/* Light mode input styles */
+input.form-control {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark mode input styles */
+@media (prefers-color-scheme: dark) {
+    input.form-control {
+        background-color: #333333;
+        color: #ffffff;
+    }
+    label.form-label {
+        color: #ffffff;
+    }
+}
+
+/* Ensuring labels are visible in both modes */
+.form-label {
+    color: #000000;
+}
+@media (prefers-color-scheme: dark) {
+    .form-label {
+        color: #ffffff;
+    }
+}
+
+/* Custom styles for larger text area */
+textarea.form-control {
+    height: 300px; /* Adjust this value as needed */
+    resize: vertical; /* Allow users to resize vertically */
+}
