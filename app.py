@@ -210,7 +210,9 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
-            return redirect(url_for("home"))
+            flash("Logged in successfully.", "success")
+            next_page = request.args.get("next")
+            return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
             flash("Login Unsuccessful. Please check username and password", "danger")
     return render_template("login.html", form=form)
@@ -219,6 +221,9 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
+    # Clear cache after logout
+    cache.clear()
+    flash("You have been logged out.", "success")
     return redirect(url_for("home"))
 
 
