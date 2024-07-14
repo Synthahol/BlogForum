@@ -48,3 +48,9 @@ class Config:
 
     # Rate limiting configuration
     RATELIMIT_STORAGE_URL = os.environ.get("REDIS_URL") or "redis://localhost:6379/0"
+
+    # Session configuration
+    SESSION_TYPE = "redis"
+    SESSION_PERMANENT = False
+    SESSION_USE_SIGNER = True
+    SESSION_REDIS = os.environ.get("REDIS_URL") or "redis://localhost:6379/0"
