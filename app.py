@@ -211,6 +211,8 @@ def login():
         if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             flash("Logged in successfully.", "success")
+            # Clear cache after login
+            cache.clear()
             next_page = request.args.get("next")
             return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
