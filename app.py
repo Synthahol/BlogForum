@@ -312,7 +312,6 @@ def upload_file():
 
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
-@cache.cached(timeout=60)
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
@@ -383,7 +382,9 @@ def delete_post(post_id):
 
     db.session.delete(post)
     db.session.commit()
-    flash("Your post has been deleted!", "success")
+    # Clear cache after deletion
+    cache.delete_memoized(view_post, post_id)
+    flash("Your post has been deleted.", "success")
     return redirect(url_for("home"))
 
 
@@ -394,8 +395,11 @@ def delete_comment(comment_id):
     if current_user.username != comment.author and not current_user.is_admin():
         flash("You do not have permission to delete this comment.", "danger")
         return redirect(url_for("view_post", post_id=comment.post_id))
+
     db.session.delete(comment)
     db.session.commit()
+    # Clear cache after deletion
+    cache.delete_memoized(view_post, comment.post_id)
     flash("Comment has been deleted.", "success")
     return redirect(url_for("view_post", post_id=comment.post_id))
 
@@ -492,6 +496,8 @@ def delete_tag(tag_id):
     tag = Tag.query.get_or_404(tag_id)
     db.session.delete(tag)
     db.session.commit()
+    # Clear cache after deletion
+    cache.delete_memoized(tag, tag_id)
     flash("Tag deleted successfully", "success")
     return redirect(url_for("manage_tags"))
 
