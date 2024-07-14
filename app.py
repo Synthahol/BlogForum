@@ -257,11 +257,11 @@ def new_post():
             if tag is None:
                 slug = generate_unique_slug(name)
                 tag = Tag(name=name, slug=slug)
-                db.session.add(tag)
+                db.session.add(tag)  # Add new tag to session
             tags.append(tag)
         post.tags = tags
 
-        db.session.add(post)
+        db.session.add(post)  # Add post to session
         try:
             db.session.commit()
         except IntegrityError:

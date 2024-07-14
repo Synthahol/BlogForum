@@ -18,7 +18,7 @@ post_tags = db.Table(
 
 # Create Post Model
 class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
@@ -39,7 +39,7 @@ class Post(db.Model):
 
 # Create Comment Model
 class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content = db.Column(db.Text, nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
@@ -53,7 +53,7 @@ class Comment(db.Model):
 
 # Create User Model
 class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
@@ -93,7 +93,7 @@ class User(UserMixin, db.Model):
 
 # Create Media Model
 class Media(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     filename = db.Column(db.String(100), nullable=False)
     filetype = db.Column(db.String(20), nullable=False)
     date_uploaded = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -106,7 +106,7 @@ class Media(db.Model):
 
 # Create Tag Model
 class Tag(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(30), nullable=False, unique=True)
     slug = db.Column(db.String(50), nullable=False, unique=True)
     tagged_posts = db.relationship("Post", secondary=post_tags, back_populates="tags")
@@ -117,7 +117,7 @@ class Tag(db.Model):
 
 # Create Reaction Model
 class Reaction(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     reaction = db.Column(db.String(10), nullable=False)
