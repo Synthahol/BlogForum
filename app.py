@@ -66,15 +66,16 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 # Debugging output to check the database URI
-DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
-print(f"Connecting to database: {DATABASE_URI}")
-logging.debug(f"Connecting to database: {DATABASE_URI}")
+print(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
+logging.debug(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
 
 # Test the database connection
 try:
     from sqlalchemy import create_engine
 
+    DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
     print(f"Connecting to database: {DATABASE_URI}")
+
     engine = create_engine(DATABASE_URI)
     connection = engine.connect()
     print("Connection to the database was successful.")

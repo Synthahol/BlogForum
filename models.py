@@ -1,12 +1,10 @@
 from datetime import datetime
 
 from flask_login import UserMixin
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Index
 from werkzeug.security import check_password_hash, generate_password_hash
 
-# Make database connection
-db = SQLAlchemy()
+from app import db  # Import the db instance from app.py
 
 # Create a table for many-to-many relationship between posts and tags
 post_tags = db.Table(
