@@ -34,6 +34,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
 from config import Config
+from extensions import db  # Import the db instance from extensions.py
 from forms import (
     ChangePasswordForm,
     CommentForm,
@@ -44,7 +45,7 @@ from forms import (
     TagForm,
     UpdateProfileForm,
 )
-from models import Comment, Post, Reaction, Tag, User, db
+from models import Comment, Post, Reaction, Tag, User
 from utils import (
     allowed_file,
     read_docx,

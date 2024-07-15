@@ -4,7 +4,7 @@ from flask_login import UserMixin
 from sqlalchemy import Index
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from app import db  # Import the db instance from app.py
+from extensions import db  # Import the db instance from app.py
 
 # Create a table for many-to-many relationship between posts and tags
 post_tags = db.Table(
