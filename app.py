@@ -28,6 +28,7 @@ from flask_login import (
     logout_user,
 )
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import generate_csrf
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -102,6 +103,17 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.setLevel(logging.INFO)
     app.logger.info("Blog startup")
+
+
+# Debugging output
+print(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
+
+try:
+    db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
+    print("Database initialized successfully.")
+except Exception as e:
+    print(f"Error initializing database: {e}")
 
 
 with app.app_context():
