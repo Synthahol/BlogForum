@@ -406,11 +406,20 @@ def delete_post(post_id):
         flash("You do not have permission to delete this post.", "danger")
         return redirect(url_for("home"))
 
-    db.session.delete(post)
-    db.session.commit()
-    # Clear cache after deletion
-    cache.delete_memoized(view_post, post_id)
-    flash("Your post has been deleted.", "success")
+    try:
+        db.session.delete(post)
+        db.session.commit()
+        try:
+            # Clear cache after deletion
+            cache.delete_memoized(view_post, post_id)
+        except Exception as cache_error:
+            app.logger.error(f"Error clearing cache for post {post_id}: {cache_error}")
+        flash("Your post has been deleted.", "success")
+    except Exception as db_error:
+        db.session.rollback()
+        app.logger.error(f"Error deleting post {post_id}: {db_error}")
+        flash(f"An error occurred: {db_error}", "danger")
+
     return redirect(url_for("home"))
 
 
