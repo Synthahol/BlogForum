@@ -28,12 +28,12 @@ from flask_login import (
     logout_user,
 )
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import generate_csrf
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
+from config import Config
 from forms import (
     ChangePasswordForm,
     CommentForm,
@@ -63,7 +63,24 @@ load_dotenv()
 
 # Create Flask instance and configure it
 app = Flask(__name__)
-app.config.from_object("config.Config")
+app.config.from_object(Config)
+
+# Debugging output to check the database URI
+DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
+print(f"Connecting to database: {DATABASE_URI}")
+logging.debug(f"Connecting to database: {DATABASE_URI}")
+
+# Test the database connection
+try:
+    from sqlalchemy import create_engine
+
+    print(f"Connecting to database: {DATABASE_URI}")
+    engine = create_engine(DATABASE_URI)
+    connection = engine.connect()
+    print("Connection to the database was successful.")
+    connection.close()
+except Exception as e:
+    print(f"Error connecting to the database: {e}")
 
 # Initialize extensions
 cache = Cache(app)
@@ -73,7 +90,6 @@ limiter = Limiter(
     key_func=get_remote_address,
     storage_uri=app.config["RATELIMIT_STORAGE_URL"],
 )
-db.init_app(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -104,20 +120,14 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info("Blog startup")
 
-
-# Debugging output
-print(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
-
-try:
-    db = SQLAlchemy(app)
-    migrate = Migrate(app, db)
-    print("Database initialized successfully.")
-except Exception as e:
-    print(f"Error initializing database: {e}")
-
+# Initialize the SQLAlchemy instance
+db.init_app(app)
 
 with app.app_context():
-    db.create_all()
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Error creating tables: {e}")
 
 
 @login_manager.user_loader
@@ -540,8 +550,8 @@ def react():
             reaction = Reaction(
                 user_id=current_user.id,
                 post_id=post_id,
-                reaction=form.reaction_type.data,  # Ensure this matches the form field name
-            )
+                reaction=form.reaction_type.data,
+            )  # Ensure this matches the form field name
             db.session.add(reaction)
         db.session.commit()
         return jsonify(

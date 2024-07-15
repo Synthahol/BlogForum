@@ -5,7 +5,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY") or "your_secret_key"
     SQLALCHEMY_DATABASE_URI = (
         os.environ.get("DATABASE_URL")
-        or "postgresql://blogforum_user:bjeFv7tdR85Sp548mhpwjjeK5sHCypVT@dpg-cq9ltedds78s739fi3fg-a.ohio-postgres.render.com:5432/blogforum"
+        or "postgresql://blogforum_user:bjeFv7tdR85Sp548mhpwjjeK5sHCypVT@dpg-cq9ltedds78s739fi3fg-a.ohio-postgres.render.com/blogforum"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(
