@@ -410,24 +410,25 @@ def update_post(post_id):
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if current_user.username != post.author and not current_user.is_admin():
-        flash("You do not have permission to delete this post.", "danger")
-        return redirect(url_for("home"))
-
-    try:
-        db.session.delete(post)
-        db.session.commit()
+    if current_user.username == post.author or current_user.is_admin():
         try:
-            # Clear cache after deletion
-            cache.delete_memoized(view_post, post_id)
-            cache.delete_memoized(home)  # Clear the cache for the home page
-        except Exception as cache_error:
-            app.logger.error(f"Error clearing cache for post {post_id}: {cache_error}")
-        flash("Your post has been deleted.", "success")
-    except Exception as db_error:
-        db.session.rollback()
-        app.logger.error(f"Error deleting post {post_id}: {db_error}")
-        flash(f"An error occurred: {db_error}", "danger")
+            db.session.delete(post)
+            db.session.commit()
+            try:
+                # Clear cache after deletion
+                cache.delete_memoized(view_post, post_id)
+                cache.delete_memoized(home)  # Clear the cache for the home page
+            except Exception as cache_error:
+                app.logger.error(
+                    f"Error clearing cache for post {post_id}: {cache_error}"
+                )
+            flash("Your post has been deleted.", "success")
+        except Exception as db_error:
+            db.session.rollback()
+            app.logger.error(f"Error deleting post {post_id}: {db_error}")
+            flash(f"An error occurred: {db_error}", "danger")
+    else:
+        flash("You do not have permission to delete this post.", "danger")
 
     return redirect(url_for("home"))
 
