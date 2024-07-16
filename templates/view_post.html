@@ -124,7 +124,10 @@ block content %}
   <h2 class="mb-1 mt-5">Add a Comment:</h2>
   <div class="card mb-3">
     <div class="card-body py-lg-0">
-      <form method="POST">
+      <form
+        method="POST"
+        action="{{ url_for('add_comment', post_id=post.id) }}"
+      >
         {{ form.hidden_tag() }}
         <div>
           {{ form.comment.label(class="form-label") }} {{
