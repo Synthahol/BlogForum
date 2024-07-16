@@ -387,30 +387,32 @@ def view_post(post_id):
 @login_required
 def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if current_user.username != post.author and not current_user.is_admin():
+
+    # Check if the current user is the author of the post or an admin
+    if current_user.username == post.author.username or current_user.is_admin():
+        form = PostForm()
+        if form.validate_on_submit():
+            post.title = form.title.data
+            post.content = form.content.data
+            db.session.commit()
+            flash("Your post has been updated!", "success")
+            return redirect(url_for("view_post", post_id=post.id))
+
+        form.title.data = post.title
+        form.content.data = post.content
+        return render_template(
+            "update.html", title="Update Post", form=form, post_id=post.id
+        )
+    else:
         flash("You do not have permission to edit this post.", "danger")
         return redirect(url_for("home"))
-
-    form = PostForm()
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
-        db.session.commit()
-        flash("Your post has been updated!", "success")
-        return redirect(url_for("view_post", post_id=post.id))
-
-    form.title.data = post.title
-    form.content.data = post.content
-    return render_template(
-        "update.html", title="Update Post", form=form, post_id=post.id
-    )
 
 
 @app.route("/post/<int:post_id>/delete", methods=["POST"])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if current_user.username == post.author or current_user.is_admin():
+    if current_user.username == post.author.username or current_user.is_admin():
         try:
             db.session.delete(post)
             db.session.commit()
@@ -437,15 +439,22 @@ def delete_post(post_id):
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
-    if current_user.username != comment.author and not current_user.is_admin():
-        flash("You do not have permission to delete this comment.", "danger")
-        return redirect(url_for("view_post", post_id=comment.post_id))
 
-    db.session.delete(comment)
-    db.session.commit()
-    # Clear cache after deletion
-    cache.delete_memoized(view_post, comment.post_id)
-    flash("Comment has been deleted.", "success")
+    # Check if the current user is the author of the comment or an admin
+    if current_user.username == comment.author.username or current_user.is_admin():
+        db.session.delete(comment)
+        db.session.commit()
+        try:
+            # Clear cache after deletion
+            cache.delete_memoized(view_post, comment.post_id)
+        except Exception as cache_error:
+            app.logger.error(
+                f"Error clearing cache for comment {comment_id}: {cache_error}"
+            )
+        flash("Comment has been deleted.", "success")
+    else:
+        flash("You do not have permission to delete this comment.", "danger")
+
     return redirect(url_for("view_post", post_id=comment.post_id))
 
 
