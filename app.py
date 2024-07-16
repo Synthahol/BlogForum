@@ -180,7 +180,6 @@ def search_results():
 
 @app.route("/", methods=["GET"])
 @app.route("/page/<int:page>", methods=["GET"])
-@cache.memoize(timeout=60)
 def home(page=1):
     per_page = 10
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(
