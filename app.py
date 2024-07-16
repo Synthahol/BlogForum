@@ -345,7 +345,6 @@ def upload_file():
 
 
 @app.route("/post/<int:post_id>", methods=["GET"])
-@cache.memoize(timeout=300)  # Cache the view_post function for 5 minutes
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
@@ -384,8 +383,10 @@ def add_comment(post_id):
         db.session.add(comment)
         db.session.commit()
         flash("Your comment has been added.", "success")
-    else:
-        flash("Failed to add your comment.", "danger")
+
+        # Clear cache for the view_post page
+        cache.delete_memoized(view_post, post_id=post_id)
+
     return redirect(url_for("view_post", post_id=post.id))
 
 

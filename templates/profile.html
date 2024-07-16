@@ -55,8 +55,8 @@ user.username }}{% endblock %} {% block content %}
         >
       </div>
       <div class="card-footer text-muted">
-        Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{ post.author
-        }}
+        Posted on {{ post.date_posted.strftime('%B %d, %Y') }} by {{
+        post.author.username }}
       </div>
     </div>
     {% endfor %}
