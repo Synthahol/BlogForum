@@ -29,6 +29,7 @@ from flask_login import (
 )
 from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
+from redis import Redis
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
@@ -81,13 +82,15 @@ try:
     connection.close()
 except Exception as e:
     print(f"Error connecting to the database: {e}")
+    logging.error(f"Error connecting to the database: {e}")
 
 # Initialize extensions
 cache = Cache(app)
 bcrypt = Bcrypt(app)
 limiter = Limiter(
-    app, key_func=get_remote_address, storage_uri=app.config["RATELIMIT_STORAGE_URL"]
+    key_func=get_remote_address, storage_uri=app.config["RATELIMIT_STORAGE_URL"]
 )
+limiter.init_app(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -126,6 +129,18 @@ with app.app_context():
         db.create_all()
     except Exception as e:
         print(f"Error creating tables: {e}")
+        logging.error(f"Error creating tables: {e}")
+
+# Test Redis connection
+redis_url = app.config["CACHE_REDIS_URL"]
+try:
+    redis_client = Redis.from_url(redis_url)
+    redis_client.ping()  # Simple ping to test connection
+    print("Connected to Redis successfully.")
+    logging.info("Connected to Redis successfully.")
+except Exception as e:
+    print(f"Error connecting to Redis: {e}")
+    logging.error(f"Error connecting to Redis: {e}")
 
 
 @login_manager.user_loader
