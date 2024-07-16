@@ -318,6 +318,7 @@ def new_post():
     return render_template("add.html", form=form)
 
 
+
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():
     if request.method == "POST":
