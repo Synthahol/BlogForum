@@ -75,8 +75,6 @@ try:
     from sqlalchemy import create_engine
 
     DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
-    print(f"Connecting to database: {DATABASE_URI}")
-
     engine = create_engine(DATABASE_URI)
     connection = engine.connect()
     print("Connection to the database was successful.")
@@ -88,9 +86,7 @@ except Exception as e:
 cache = Cache(app)
 bcrypt = Bcrypt(app)
 limiter = Limiter(
-    app=app,
-    key_func=get_remote_address,
-    storage_uri=app.config["RATELIMIT_STORAGE_URL"],
+    app, key_func=get_remote_address, storage_uri=app.config["RATELIMIT_STORAGE_URL"]
 )
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
@@ -577,16 +573,6 @@ def react():
     else:
         flash("Failed to process your reaction.", "danger")
         return jsonify(status="error", message=form.errors)
-
-
-@app.after_request
-def add_header(response):
-    response.headers["Cache-Control"] = (
-        "no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0"
-    )
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "-1"
-    return response
 
 
 if __name__ == "__main__":

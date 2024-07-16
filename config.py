@@ -1,11 +1,13 @@
 import os
 
+from redis import Redis
+
 
 class Config:
-    SECRET_KEY = os.environ.get("SECRET_KEY") or "your_secret_key"
-    SQLALCHEMY_DATABASE_URI = (
-        os.environ.get("DATABASE_URL")
-        or "postgresql://blogforum_user:bjeFv7tdR85Sp548mhpwjjeK5sHCypVT@dpg-cq9ltedds78s739fi3fg-a.ohio-postgres.render.com/blogforum"
+    SECRET_KEY = os.environ.get("SECRET_KEY", "your_secret_key")
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL",
+        "postgresql://your_local_db_user:your_password@localhost/your_local_db",
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(
@@ -43,14 +45,19 @@ class Config:
 
     # Cache configuration
     CACHE_TYPE = "redis"
-    CACHE_REDIS_URL = os.environ.get("REDIS_URL") or "redis://localhost:6379/0"
+    CACHE_REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
     CACHE_DEFAULT_TIMEOUT = 300
 
     # Rate limiting configuration
-    RATELIMIT_STORAGE_URL = os.environ.get("REDIS_URL") or "redis://localhost:6379/0"
+    RATELIMIT_STORAGE_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
 
     # Session configuration
     SESSION_TYPE = "redis"
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
-    SESSION_REDIS = os.environ.get("REDIS_URL") or "redis://localhost:6379/0"
+
+    @staticmethod
+    def init_app(app):
+        redis_url = os.environ.get("REDIS_URL")
+        if redis_url:
+            app.config["SESSION_REDIS"] = Redis.from_url(redis_url)
