@@ -58,31 +58,12 @@ from utils import (
     save_media,
 )
 
-############## CONFIGURATIONS and INITIALIZATIONS ###############
-
 # Load environment variables
 load_dotenv()
 
 # Create Flask instance and configure it
 app = Flask(__name__)
 app.config.from_object(Config)
-
-# Debugging output to check the database URI
-print(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
-logging.debug(f"Connecting to database: {app.config['SQLALCHEMY_DATABASE_URI']}")
-
-# Test the database connection
-try:
-    from sqlalchemy import create_engine
-
-    DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
-    engine = create_engine(DATABASE_URI)
-    connection = engine.connect()
-    print("Connection to the database was successful.")
-    connection.close()
-except Exception as e:
-    print(f"Error connecting to the database: {e}")
-    logging.error(f"Error connecting to the database: {e}")
 
 # Initialize extensions
 cache = Cache(app)
@@ -94,6 +75,9 @@ limiter.init_app(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
+
+# Initialize the SQLAlchemy instance
+db.init_app(app)
 
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
@@ -121,8 +105,18 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info("Blog startup")
 
-# Initialize the SQLAlchemy instance
-db.init_app(app)
+# Test the database connection
+try:
+    from sqlalchemy import create_engine
+
+    DATABASE_URI = app.config["SQLALCHEMY_DATABASE_URI"]
+    engine = create_engine(DATABASE_URI)
+    connection = engine.connect()
+    print("Connection to the database was successful.")
+    connection.close()
+except Exception as e:
+    print(f"Error connecting to the database: {e}")
+    logging.error(f"Error connecting to the database: {e}")
 
 with app.app_context():
     try:
@@ -351,6 +345,7 @@ def upload_file():
 
 
 @app.route("/post/<int:post_id>", methods=["GET", "POST"])
+@cache.memoize(timeout=300)  # Cache the view_post function for 5 minutes
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
     sanitized_content = sanitize_and_render_markdown(post.content)
