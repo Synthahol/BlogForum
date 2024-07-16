@@ -385,7 +385,10 @@ def add_comment(post_id):
         flash("Your comment has been added.", "success")
 
         # Clear cache for the view_post page
-        cache.delete_memoized(view_post, post_id=post_id)
+        try:
+            cache.delete_memoized(view_post, post_id)
+        except Exception as cache_error:
+            app.logger.error(f"Error clearing cache for post {post_id}: {cache_error}")
 
     return redirect(url_for("view_post", post_id=post.id))
 
