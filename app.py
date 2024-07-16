@@ -301,6 +301,8 @@ def new_post():
         db.session.add(post)  # Add post to session
         try:
             db.session.commit()
+            # Clear the cache for the home page after a new post is created
+            cache.clear()
         except IntegrityError:
             db.session.rollback()
             current_app.logger.error(
@@ -316,7 +318,6 @@ def new_post():
         return redirect(url_for("home"))
 
     return render_template("add.html", form=form)
-
 
 
 @app.route("/upload", methods=["GET", "POST"])
