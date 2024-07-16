@@ -344,7 +344,7 @@ def upload_file():
     return render_template("upload.html")
 
 
-@app.route("/post/<int:post_id>", methods=["GET", "POST"])
+@app.route("/post/<int:post_id>", methods=["GET"])
 @cache.memoize(timeout=300)  # Cache the view_post function for 5 minutes
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -352,20 +352,6 @@ def view_post(post_id):
     comment_form = CommentForm()
     reaction_form = ReactionForm()
     reaction_form.post_id.data = post_id  # Explicitly set the post_id
-    if comment_form.validate_on_submit():
-        if not current_user.is_authenticated:
-            flash("You need to be logged in to comment.", "danger")
-            return redirect(url_for("login"))
-        comment = Comment(
-            content=comment_form.comment.data,
-            author=current_user,
-            post_id=post.id,
-            user_id=current_user.id,
-        )
-        db.session.add(comment)
-        db.session.commit()
-        flash("Your comment has been added.", "success")
-        return redirect(url_for("view_post", post_id=post.id))
     comments = (
         Comment.query.filter_by(post_id=post.id)
         .order_by(Comment.date_posted.desc())
@@ -381,6 +367,26 @@ def view_post(post_id):
         content=sanitized_content,
         csrf_token=generate_csrf(),
     )
+
+
+@app.route("/post/<int:post_id>/comment", methods=["POST"])
+@login_required
+def add_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    comment_form = CommentForm()
+    if comment_form.validate_on_submit():
+        comment = Comment(
+            content=comment_form.comment.data,
+            author=current_user,
+            post_id=post.id,
+            user_id=current_user.id,
+        )
+        db.session.add(comment)
+        db.session.commit()
+        flash("Your comment has been added.", "success")
+    else:
+        flash("Failed to add your comment.", "danger")
+    return redirect(url_for("view_post", post_id=post.id))
 
 
 @app.route("/post/<int:post_id>/update", methods=["GET", "POST"])
