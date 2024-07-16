@@ -420,6 +420,7 @@ def delete_post(post_id):
         try:
             # Clear cache after deletion
             cache.delete_memoized(view_post, post_id)
+            cache.delete_memoized(home)  # Clear the cache for the home page
         except Exception as cache_error:
             app.logger.error(f"Error clearing cache for post {post_id}: {cache_error}")
         flash("Your post has been deleted.", "success")
