@@ -1,14 +1,15 @@
 import os
 
+from dotenv import load_dotenv
 from redis import Redis
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class Config:
-    SECRET_KEY = os.environ.get("SECRET_KEY", "your_secret_key")
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        "DATABASE_URL",
-        "postgresql://blogforum_user:bjeFv7tdR85Sp548mhpwjjeK5sHCypVT@dpg-cq9ltedds78s739fi3fg-a/blogforum",
-    )
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "static/uploads"
@@ -45,19 +46,23 @@ class Config:
 
     # Cache configuration
     CACHE_TYPE = "redis"
-    CACHE_REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+    CACHE_REDIS_URL = os.getenv("REDIS_URL")
     CACHE_DEFAULT_TIMEOUT = 300
 
     # Rate limiting configuration
-    RATELIMIT_STORAGE_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+    RATELIMIT_STORAGE_URL = os.getenv("REDIS_URL")
 
     # Session configuration
     SESSION_TYPE = "redis"
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
 
+    # reCAPTCHA configuration
+    RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
+    RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+
     @staticmethod
     def init_app(app):
-        redis_url = os.environ.get("REDIS_URL")
+        redis_url = os.getenv("REDIS_URL")
         if redis_url:
             app.config["SESSION_REDIS"] = Redis.from_url(redis_url)

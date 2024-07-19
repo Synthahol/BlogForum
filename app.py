@@ -65,6 +65,7 @@ load_dotenv()
 # Create Flask instance and configure it
 app = Flask(__name__)
 app.config.from_object(Config)
+Config.init_app(app)
 
 # Initialize extensions
 cache = Cache(app)
@@ -79,10 +80,6 @@ login_manager.login_view = "login"
 
 # Initialize the SQLAlchemy instance
 db.init_app(app)
-
-# Load reCAPTCHA keys from environment variables
-RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
@@ -203,10 +200,13 @@ def signup():
         if not recaptcha_response:
             flash("reCAPTCHA verification failed. Please try again.", "danger")
             return render_template(
-                "signup.html", form=form, site_key=RECAPTCHA_SITE_KEY
+                "signup.html", form=form, site_key=app.config["RECAPTCHA_SITE_KEY"]
             )
 
-        data = {"secret": RECAPTCHA_SECRET_KEY, "response": recaptcha_response}
+        data = {
+            "secret": app.config["RECAPTCHA_SECRET_KEY"],
+            "response": recaptcha_response,
+        }
         r = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data)
         result = r.json()
 
@@ -230,7 +230,9 @@ def signup():
                 )
         else:
             flash("reCAPTCHA verification failed. Please try again.", "danger")
-    return render_template("signup.html", form=form, site_key=RECAPTCHA_SITE_KEY)
+    return render_template(
+        "signup.html", form=form, site_key=app.config["RECAPTCHA_SITE_KEY"]
+    )
 
 
 @app.route("/change_password", methods=["POST", "GET"])
