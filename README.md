@@ -1,4 +1,6 @@
-Chris’s Blog/Forum v1.0
+
+
+Chris’s BlogForum v1.0
 
 This is my blog/forum I built for myself to give me a platform to journal my journey of learning programming. There is social functionality built into it as well in the form of a like/dislike button system, tagging sysem, and the ability for logged in users to comment as well as post their own posts.
 
