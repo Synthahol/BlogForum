@@ -4,6 +4,7 @@ import re
 from functools import wraps
 from logging.handlers import RotatingFileHandler
 
+import requests
 from dotenv import load_dotenv
 from flask import (
     Flask,
@@ -78,6 +79,10 @@ login_manager.login_view = "login"
 
 # Initialize the SQLAlchemy instance
 db.init_app(app)
+
+# Load reCAPTCHA keys from environment variables
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
+RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
@@ -194,24 +199,38 @@ def signup():
         return redirect(url_for("home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        try:
-            hashed_password = generate_password_hash(form.password.data)
-            user = User(
-                username=form.username.data,
-                email=form.email.data,
-                password=hashed_password,
+        recaptcha_response = request.form.get("g-recaptcha-response")
+        if not recaptcha_response:
+            flash("reCAPTCHA verification failed. Please try again.", "danger")
+            return render_template(
+                "signup.html", form=form, site_key=RECAPTCHA_SITE_KEY
             )
-            db.session.add(user)
-            db.session.commit()
-            flash("Your account has been created!", "success")
-            return redirect(url_for("login"))
-        except IntegrityError:
-            db.session.rollback()
-            flash(
-                "An error occurred. It's likely the username or email already exists.",
-                "danger",
-            )
-    return render_template("signup.html", form=form)
+
+        data = {"secret": RECAPTCHA_SECRET_KEY, "response": recaptcha_response}
+        r = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data)
+        result = r.json()
+
+        if result.get("success"):
+            try:
+                hashed_password = generate_password_hash(form.password.data)
+                user = User(
+                    username=form.username.data,
+                    email=form.email.data,
+                    password=hashed_password,
+                )
+                db.session.add(user)
+                db.session.commit()
+                flash("Your account has been created!", "success")
+                return redirect(url_for("login"))
+            except IntegrityError:
+                db.session.rollback()
+                flash(
+                    "An error occurred. It's likely the username or email already exists.",
+                    "danger",
+                )
+        else:
+            flash("reCAPTCHA verification failed. Please try again.", "danger")
+    return render_template("signup.html", form=form, site_key=RECAPTCHA_SITE_KEY)
 
 
 @app.route("/change_password", methods=["POST", "GET"])

@@ -30,16 +30,19 @@ content %}
             id="showPassword"
             onclick="togglePassword()"
           />
-          <label class="form-check-label" for="showPassword"
-            >Show Password</label
-          >
+          <label class="form-check-label" for="showPassword">
+            Show Password
+          </label>
         </div>
+        <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+        <br />
         <button type="submit" class="btn btn-primary w-100">Sign Up</button>
       </form>
     </div>
   </div>
 </div>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
   function togglePassword() {
     var passwordField = document.querySelector('[name="password"]');
