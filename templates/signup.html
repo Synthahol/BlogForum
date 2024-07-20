@@ -43,7 +43,7 @@ content %}
 </div>
 
 <script
-  src="https://www.google.com/recaptcha/api.js?render=6Le0oxMqAAAAAAmb7ewaLff8T5jtkv7rjzjZUTS3"
+  src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"
   async
   defer
 ></script>
@@ -69,9 +69,7 @@ content %}
       event.preventDefault(); // Prevent the form from submitting immediately
       grecaptcha.ready(function () {
         grecaptcha
-          .execute("6Le0oxMqAAAAAAmb7ewaLff8T5jtkv7rjzjZUTS3", {
-            action: "submit",
-          })
+          .execute("{{ site_key }}", { action: "submit" })
           .then(function (token) {
             // Add the token to the form
             var recaptchaResponse = document.createElement("input");

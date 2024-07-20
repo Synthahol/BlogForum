@@ -197,18 +197,20 @@ def signup():
 
     form = RegistrationForm()
 
+    # Print the site key to verify it's being passed correctly
+    print(f"RECAPTCHA_SITE_KEY: {app.config['RECAPTCHA_PUBLIC_KEY']}")
+
     if form.validate_on_submit():
-        # Get the reCAPTCHA response token from the form
         recaptcha_response = request.form.get("g-recaptcha-response")
 
         if not recaptcha_response:
             flash("reCAPTCHA verification failed. Please try again.", "danger")
             return render_template(
-                "signup.html", form=form, site_key=app.config["RECAPTCHA_SITE_KEY"]
+                "signup.html", form=form, site_key=app.config["RECAPTCHA_PUBLIC_KEY"]
             )
-        # Verify the reCAPTCHA response token with Google
+
         data = {
-            "secret": app.config["RECAPTCHA_SECRET_KEY"],
+            "secret": app.config["RECAPTCHA_PRIVATE_KEY"],
             "response": recaptcha_response,
         }
         r = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data)
@@ -236,7 +238,7 @@ def signup():
             flash("reCAPTCHA verification failed. Please try again.", "danger")
 
     return render_template(
-        "signup.html", form=form, site_key=app.config["RECAPTCHA_SITE_KEY"]
+        "signup.html", form=form, site_key=app.config["RECAPTCHA_PUBLIC_KEY"]
     )
 
 

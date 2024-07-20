@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
-from flask_wtf.recaptcha import RecaptchaField
 from wtforms import HiddenField, PasswordField, StringField, SubmitField, TextAreaField
 from wtforms.validators import (  # noqa: F401
     URL,
@@ -64,7 +63,6 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
-    recaptcha = RecaptchaField()
     submit = SubmitField("Sign Up")
 
     def validate_username(self, username):

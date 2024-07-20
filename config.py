@@ -58,8 +58,8 @@ class Config:
     SESSION_USE_SIGNER = True
 
     # reCAPTCHA configuration
-    RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY")
-    RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+    RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_SITE_KEY")
+    RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 
     @staticmethod
     def init_app(app):
