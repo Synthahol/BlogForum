@@ -66,3 +66,6 @@ class Config:
         redis_url = os.getenv("REDIS_URL")
         if redis_url:
             app.config["SESSION_REDIS"] = Redis.from_url(redis_url)
+
+
+print(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
