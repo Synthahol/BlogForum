@@ -194,9 +194,12 @@ def home(page=1):
 def signup():
     if current_user.is_authenticated:
         return redirect(url_for("home"))
+
     form = RegistrationForm()
+
     if form.validate_on_submit():
         recaptcha_response = request.form.get("g-recaptcha-response")
+
         if not recaptcha_response:
             flash("reCAPTCHA verification failed. Please try again.", "danger")
             return render_template(
@@ -230,6 +233,7 @@ def signup():
                 )
         else:
             flash("reCAPTCHA verification failed. Please try again.", "danger")
+
     return render_template(
         "signup.html", form=form, site_key=app.config["RECAPTCHA_SITE_KEY"]
     )

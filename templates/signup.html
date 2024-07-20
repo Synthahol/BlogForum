@@ -30,13 +30,24 @@ content %}
             id="showPassword"
             onclick="togglePassword()"
           />
-          <label class="form-check-label" for="showPassword">
-            Show Password
-          </label>
+          <label class="form-check-label" for="showPassword"
+            >Show Password</label
+          >
         </div>
-        <div class="g-recaptcha" data-sitekey="{{ site_key }}"></div>
+        <div
+          class="g-recaptcha"
+          data-sitekey="{{ site_key }}"
+          data-callback="recaptchaCallback"
+        ></div>
         <br />
-        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+        <button
+          id="submitBtn"
+          type="submit"
+          class="btn btn-primary w-100"
+          disabled
+        >
+          Sign Up
+        </button>
       </form>
     </div>
   </div>
@@ -57,6 +68,10 @@ content %}
       passwordField.type = "password";
       confirmPasswordField.type = "password";
     }
+  }
+
+  function recaptchaCallback() {
+    document.getElementById("submitBtn").disabled = false;
   }
 </script>
 {% endblock %}
