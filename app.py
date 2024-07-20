@@ -196,9 +196,6 @@ def signup():
         return redirect(url_for("home"))
 
     form = RegistrationForm()
-    
-    # Print the site key to verify it's being passed correctly
-    print(f"RECAPTCHA_SITE_KEY: {app.config['RECAPTCHA_SITE_KEY']}")
 
     if form.validate_on_submit():
         # Get the reCAPTCHA response token from the form

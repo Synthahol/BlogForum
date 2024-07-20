@@ -5,7 +5,7 @@ content %}
   <h2 class="text-center mb-4">Sign Up</h2>
   <div class="card">
     <div class="card-body">
-      <form method="POST" action="{{ url_for('signup') }}">
+      <form id="signup-form" method="POST" action="{{ url_for('signup') }}">
         {{ form.hidden_tag() }}
         <div class="mb-3">
           {{ form.username.label(class="form-label") }} {{
@@ -34,18 +34,7 @@ content %}
             >Show Password</label
           >
         </div>
-        <div
-          class="g-recaptcha"
-          data-sitekey="{{ RECAPTCHA_SITE_KEY }}"
-          data-callback="recaptchaCallback"
-        ></div>
-        <br />
-        <button
-          id="submitBtn"
-          type="submit"
-          class="btn btn-primary w-100"
-          disabled
-        >
+        <button id="submitBtn" type="submit" class="btn btn-primary w-100">
           Sign Up
         </button>
       </form>
@@ -74,8 +63,28 @@ content %}
     }
   }
 
-  function recaptchaCallback() {
-    document.getElementById("submitBtn").disabled = false;
-  }
+  document
+    .getElementById("signup-form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting immediately
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute("6Le0oxMqAAAAAAmb7ewaLff8T5jtkv7rjzjZUTS3", {
+            action: "submit",
+          })
+          .then(function (token) {
+            // Add the token to the form
+            var recaptchaResponse = document.createElement("input");
+            recaptchaResponse.setAttribute("type", "hidden");
+            recaptchaResponse.setAttribute("name", "g-recaptcha-response");
+            recaptchaResponse.setAttribute("value", token);
+            document
+              .getElementById("signup-form")
+              .appendChild(recaptchaResponse);
+            // Submit the form
+            document.getElementById("signup-form").submit();
+          });
+      });
+    });
 </script>
 {% endblock %}
