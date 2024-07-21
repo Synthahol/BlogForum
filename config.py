@@ -19,6 +19,7 @@ class Config:
     )
     MAX_CONTENT_PATH = 50 * 1024 * 1024  # 50 MB max file size
     ALLOWED_EXTENSIONS = {
+        # Images
         "png",
         "jpg",
         "jpeg",
@@ -26,22 +27,44 @@ class Config:
         "tiff",
         "tif",
         "svg",
+        "bmp",
+        "webp",
+        "ico",
+        # Videos
         "mp4",
         "avi",
         "avchd",
         "mov",
         "flv",
         "wmv",
+        "mkv",
+        # Audio
         "mp3",
         "m4a",
         "wav",
+        "ogg",
+        "flac",
+        # Documents
         "pdf",
         "txt",
         "html",
         "xls",
         "xlsx",
         "doc",
-        "docs",
+        "docx",
+        "odt",
+        "ppt",
+        "pptx",
+        "rtf",
+        "md",
+        "epub",
+        # Compressed
+        "zip",
+        "tar",
+        "gz",
+        "rar",
+        "7z",
+        "bz2",
     }
 
     # Cache configuration
