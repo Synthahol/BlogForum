@@ -15,6 +15,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_from_directory,
     url_for,
 )
 from flask_bcrypt import Bcrypt
@@ -35,7 +36,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-from config import Config
+from config import config  # Import the config dictionary
 from extensions import db  # Import the db instance from extensions.py
 from forms import (
     ChangePasswordForm,
@@ -47,25 +48,24 @@ from forms import (
     TagForm,
     UpdateProfileForm,
 )
-from models import Comment, Post, Reaction, Tag, User
+from models import Comment, Media, Post, Reaction, Tag, User
 from utils import (
     allowed_file,
-    read_docx,
-    read_ods,
-    read_odt,
-    read_rtf,
+    delete_media_file,  # Import the delete_media_file utility
     sanitize_and_render_markdown,
-    save_file,
     save_media,
 )
 
 # Load environment variables
 load_dotenv()
 
+# Get the current environment
+current_env = os.getenv("FLASK_ENV", "development")
+
 # Create Flask instance and configure it
 app = Flask(__name__)
-app.config.from_object(Config)
-Config.init_app(app)
+app.config.from_object(config[current_env])
+config[current_env].init_app(app)
 
 # Initialize extensions
 cache = Cache(app)
@@ -83,6 +83,7 @@ db.init_app(app)
 
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
+os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 # Clear existing logs
 if not app.debug:
@@ -127,16 +128,17 @@ with app.app_context():
         print(f"Error creating tables: {e}")
         logging.error(f"Error creating tables: {e}")
 
-# Test Redis connection
-redis_url = app.config["CACHE_REDIS_URL"]
-try:
-    redis_client = Redis.from_url(redis_url)
-    redis_client.ping()  # Simple ping to test connection
-    print("Connected to Redis successfully.")
-    logging.info("Connected to Redis successfully.")
-except Exception as e:
-    print(f"Error connecting to Redis: {e}")
-    logging.error(f"Error connecting to Redis: {e}")
+# Conditionally test Redis connection
+redis_url = app.config.get("CACHE_REDIS_URL")
+if redis_url:
+    try:
+        redis_client = Redis.from_url(redis_url)
+        redis_client.ping()  # Simple ping to test connection
+        print("Connected to Redis successfully.")
+        logging.info("Connected to Redis successfully.")
+    except Exception as e:
+        print(f"Error connecting to Redis: {e}")
+        logging.error(f"Error connecting to Redis: {e}")
 
 
 @login_manager.user_loader
@@ -169,6 +171,39 @@ def generate_unique_slug(name):
 
 
 ######### ROUTES #############
+
+
+@app.route("/upload", methods=["GET", "POST"])
+@login_required
+def upload_file():
+    if request.method == "POST":
+        if "file" not in request.files:
+            flash("No file part", "danger")
+            return redirect(request.url)
+        file = request.files["file"]
+        if file.filename == "":
+            flash("No selected file", "danger")
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            file.save(filepath)
+
+            # Save file metadata to the database
+            new_media = Media(
+                filename=filename, filetype=file.content_type, user_id=current_user.id
+            )
+            db.session.add(new_media)
+            db.session.commit()
+
+            flash("File successfully uploaded", "success")
+            return redirect(url_for("uploaded_file", filename=filename))
+    return render_template("upload.html")
+
+
+@app.route("/uploads/<filename>")
+def uploaded_file(filename):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
 @app.route("/search")
@@ -341,36 +376,6 @@ def new_post():
     return render_template("add.html", form=form)
 
 
-@app.route("/upload", methods=["GET", "POST"])
-def upload_file():
-    if request.method == "POST":
-        if "file" not in request.files:
-            flash("No file part")
-            return redirect(request.url)
-        file = request.files["file"]
-        if file.filename == "":
-            flash("No selected file")
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = save_file(file)
-            file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-            content = ""
-            try:
-                if filename.endswith(".docx"):
-                    content = read_docx(file_path)
-                elif filename.endswith(".odt"):
-                    content = read_odt(file_path)
-                elif filename.endswith(".ods"):
-                    content = read_ods(file_path)
-                elif filename.endswith(".rtf"):
-                    content = read_rtf(file_path)
-            except ImportError as e:
-                flash(str(e))
-            flash(content)
-            return redirect(url_for("upload_file", filename=filename))
-    return render_template("upload.html")
-
-
 @app.route("/post/<int:post_id>", methods=["GET"])
 def view_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -451,6 +456,10 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if current_user.username == post.author.username or current_user.is_admin():
         try:
+            # Delete associated media files from filesystem
+            for media in post.media:
+                delete_media_file(media.filename)
+
             db.session.delete(post)
             db.session.commit()
             try:

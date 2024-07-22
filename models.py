@@ -30,6 +30,9 @@ class Post(db.Model):
     comments = db.relationship(
         "Comment", back_populates="post", lazy="dynamic", cascade="all, delete-orphan"
     )
+    media = db.relationship(
+        "Media", back_populates="post", lazy="dynamic", cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -96,7 +99,9 @@ class Media(db.Model):
     filetype = db.Column(db.String(20), nullable=False)
     date_uploaded = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
     uploader = db.relationship("User", back_populates="media")
+    post = db.relationship("Post", back_populates="media")
 
     def __repr__(self):
         return f"Media('{self.filename}', '{self.filetype}', '{self.date_uploaded}')"

@@ -9,7 +9,6 @@ load_dotenv()
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "static/uploads"
@@ -91,4 +90,18 @@ class Config:
             app.config["SESSION_REDIS"] = Redis.from_url(redis_url)
 
 
-print(f"DATABASE_URL: {os.getenv('DATABASE_URL')}")
+class DevelopmentConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.getenv("DEV_DATABASE_URL")
+
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+
+
+config = {
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+}
+
+current_config = config[os.getenv("FLASK_ENV", "development")]
+print(f"DATABASE_URL: {current_config.SQLALCHEMY_DATABASE_URI}")

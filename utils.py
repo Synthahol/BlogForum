@@ -76,7 +76,7 @@ def allowed_file(filename):
 
 def save_file(file):
     filename = secure_filename(file.filename)
-    file.save(os.path.join("uploads", filename))
+    file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
     return filename
 
 
@@ -123,9 +123,15 @@ def read_rtf(file_path):
 
 def save_media(form_media):
     filename = secure_filename(form_media.filename)
-    file_path = os.path.join(current_app.root_path, "static/uploads", filename)
+    file_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
     form_media.save(file_path)
     return filename
+
+
+def delete_media_file(filename):
+    file_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
 
 
 def is_image_file(filename):
