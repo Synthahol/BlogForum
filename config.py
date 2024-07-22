@@ -96,6 +96,7 @@ class DevelopmentConfig(Config):
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
+    print(f"Using ProductionConfig with DATABASE_URL: {SQLALCHEMY_DATABASE_URI}")
 
 
 config = {
@@ -103,5 +104,7 @@ config = {
     "production": ProductionConfig,
 }
 
-current_config = config[os.getenv("FLASK_ENV", "development")]
+current_env = os.getenv("FLASK_ENV", "development")
+current_config = config[current_env]
+print(f"Current environment: {current_env}")
 print(f"DATABASE_URL: {current_config.SQLALCHEMY_DATABASE_URI}")

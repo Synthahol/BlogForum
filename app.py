@@ -36,8 +36,8 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
-from config import config  # Import the config dictionary
-from extensions import db  # Import the db instance from extensions.py
+from config import config
+from extensions import db
 from forms import (
     ChangePasswordForm,
     CommentForm,
@@ -51,7 +51,7 @@ from forms import (
 from models import Comment, Media, Post, Reaction, Tag, User
 from utils import (
     allowed_file,
-    delete_media_file,  # Import the delete_media_file utility
+    delete_media_file,
     sanitize_and_render_markdown,
     save_media,
 )
