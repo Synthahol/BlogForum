@@ -453,9 +453,9 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if current_user.username == post.author.username or current_user.is_admin():
         try:
-            # Delete associated media files from filesystem
+            # Delete associated media files from the database
             for media in post.media:
-                delete_media_file(media.filename)
+                delete_media_file(media.id)
 
             db.session.delete(post)
             db.session.commit()
