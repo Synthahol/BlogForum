@@ -84,7 +84,6 @@ db.init_app(app)
 
 # Ensure profile pics folder exists
 os.makedirs(app.config["PROFILE_PICS_FOLDER"], exist_ok=True)
-os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 # Clear existing logs
 if not app.debug:
@@ -197,7 +196,9 @@ def upload_file():
 def uploaded_file(media_id):
     media = Media.query.get_or_404(media_id)
     return send_file(
-        BytesIO(media.data), attachment_filename=media.filename, mimetype=media.filetype
+        BytesIO(media.file_data),
+        attachment_filename=media.filename,
+        mimetype=media.filetype,
     )
 
 
@@ -323,7 +324,7 @@ def new_post():
     if form.validate_on_submit():
         filename = None
         if form.media.data:
-            filename = save_media(form.media.data)
+            filename = save_media(form.media.data, current_user.id)
 
         # Sanitize title and content
         sanitized_title = sanitize_and_render_markdown(form.title.data)
