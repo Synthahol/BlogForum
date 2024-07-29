@@ -322,10 +322,6 @@ def logout():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        filename = None
-        if form.media.data:
-            filename = save_media(form.media.data, current_user.id)
-
         # Sanitize title and content
         sanitized_title = sanitize_and_render_markdown(form.title.data)
         sanitized_content = sanitize_and_render_markdown(form.content.data)
@@ -334,7 +330,6 @@ def new_post():
         post = Post(
             title=sanitized_title,
             content=sanitized_content,
-            media_filename=filename,
             author=current_user,
         )
 
@@ -352,7 +347,12 @@ def new_post():
 
         db.session.add(post)  # Add post to session
         try:
-            db.session.commit()
+            db.session.commit()  # Commit to get the post ID
+
+            # Handle media file
+            if form.media.data:
+                save_media(form.media.data, current_user.id, post.id)
+
             # Clear the cache for the home page after a new post is created
             cache.clear()
         except IntegrityError:
