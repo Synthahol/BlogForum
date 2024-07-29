@@ -346,13 +346,14 @@ def new_post():
         post.tags = tags
 
         db.session.add(post)  # Add post to session
+        db.session.flush()  # Flush to get the post ID
+
+        # Handle media file
+        if form.media.data:
+            save_media(form.media.data, current_user.id, post.id)
+
         try:
-            db.session.commit()  # Commit to get the post ID
-
-            # Handle media file
-            if form.media.data:
-                save_media(form.media.data, current_user.id, post.id)
-
+            db.session.commit()
             # Clear the cache for the home page after a new post is created
             cache.clear()
         except IntegrityError:
