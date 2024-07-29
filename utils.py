@@ -1,10 +1,7 @@
-import os
-
 import bleach
 import docx
 import pandas as pd
 import pypandoc
-from flask import current_app
 from linkify_it import LinkifyIt
 from markdown import markdown
 from markdown.extensions import Extension
@@ -13,6 +10,8 @@ from odf.opendocument import load as load_odf
 from odf.table import Table, TableCell, TableRow
 from odf.text import P
 from werkzeug.utils import secure_filename
+
+from models import Media, db
 
 
 class LinkifyPostprocessor(Postprocessor):
@@ -74,10 +73,22 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def save_file(file):
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
-    return filename
+def save_media(form_media, user_id, post_id=None):
+    filename = secure_filename(form_media.filename)
+    file_data = form_media.read()  # Read the file content
+
+    new_media = Media(
+        filename=filename,
+        filetype=form_media.content_type,
+        user_id=user_id,
+        post_id=post_id,
+        data=file_data,  # Save the file content
+    )
+
+    db.session.add(new_media)
+    db.session.commit()
+
+    return new_media.id  # Return the ID of the new media
 
 
 def read_spreadsheet(file_path):
@@ -121,17 +132,11 @@ def read_rtf(file_path):
     return pypandoc.convert_file(file_path, "plain")
 
 
-def save_media(form_media):
-    filename = secure_filename(form_media.filename)
-    file_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
-    form_media.save(file_path)
-    return filename
-
-
-def delete_media_file(filename):
-    file_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
-    if os.path.exists(file_path):
-        os.remove(file_path)
+def delete_media_file(media_id):
+    media = Media.query.get(media_id)
+    if media:
+        db.session.delete(media)
+        db.session.commit()
 
 
 def is_image_file(filename):

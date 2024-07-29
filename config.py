@@ -10,9 +10,7 @@ load_dotenv()
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    UPLOAD_FOLDER = os.path.join(
-        os.path.abspath(os.path.dirname(__file__)), "static/uploads"
-    )
+
     PROFILE_PICS_FOLDER = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "static/profile_pics"
     )

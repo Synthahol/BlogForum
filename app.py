@@ -2,6 +2,7 @@ import logging
 import os
 import re
 from functools import wraps
+from io import BytesIO
 from logging.handlers import RotatingFileHandler
 
 import requests
@@ -15,7 +16,7 @@ from flask import (
     redirect,
     render_template,
     request,
-    send_from_directory,
+    send_file,
     url_for,
 )
 from flask_bcrypt import Bcrypt
@@ -185,25 +186,19 @@ def upload_file():
             flash("No selected file", "danger")
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-            file.save(filepath)
-
-            # Save file metadata to the database
-            new_media = Media(
-                filename=filename, filetype=file.content_type, user_id=current_user.id
-            )
-            db.session.add(new_media)
-            db.session.commit()
+            media_id = save_media(file, current_user.id)  # Save file to the database
 
             flash("File successfully uploaded", "success")
-            return redirect(url_for("uploaded_file", filename=filename))
+            return redirect(url_for("uploaded_file", media_id=media_id))
     return render_template("upload.html")
 
 
-@app.route("/uploads/<filename>")
-def uploaded_file(filename):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
+@app.route("/uploads/<int:media_id>")
+def uploaded_file(media_id):
+    media = Media.query.get_or_404(media_id)
+    return send_file(
+        BytesIO(media.data), attachment_filename=media.filename, mimetype=media.filetype
+    )
 
 
 @app.route("/search")

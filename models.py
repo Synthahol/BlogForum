@@ -100,6 +100,8 @@ class Media(db.Model):
     date_uploaded = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey("post.id"), nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+
     uploader = db.relationship("User", back_populates="media")
     post = db.relationship("Post", back_populates="media")
 

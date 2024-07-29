@@ -5,46 +5,41 @@ block content %}
   <h1>{{ post.title }}</h1>
   <div>{{ content|safe }}</div>
 
-  {% if post.media_filename %} {% set ext = post.media_filename.split('.')[-1]
-  %} {% if ext in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'tif', 'svg'] %}
+  {% for media in post.media %} {% set ext = media.filename.split('.')[-1] %} {%
+  if ext in ['jpg', 'jpeg', 'png', 'gif', 'tiff', 'tif', 'svg'] %}
   <img
-    src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    src="{{ url_for('static', filename='uploads/' ~ media.filename) }}"
     class="img-fluid"
     alt="Media"
   />
   {% elif ext in ['mp4', 'avi', 'avchd', 'mov', 'flv', 'wmv'] %}
   <video controls class="w-100">
     <source
-      src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+      src="{{ url_for('static', filename='uploads/' ~ media.filename) }}"
       type="video/{{ ext }}"
     />
   </video>
   {% elif ext in ['mp3', 'm4a', 'wav'] %}
   <audio controls class="w-100">
     <source
-      src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+      src="{{ url_for('static', filename='uploads/' ~ media.filename) }}"
       type="audio/{{ ext }}"
     />
   </audio>
   {% elif ext == 'pdf' %}
   <embed
-    src="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    src="{{ url_for('static', filename='uploads/' ~ media.filename) }}"
     type="application/pdf"
     width="100%"
     height="600px"
   />
   {% elif ext in ['txt', 'html', 'xls', 'xlsx', 'csv', 'doc', 'docs'] %}
   <a
-    href="{{ url_for('static', filename='uploads/' ~ post.media_filename) }}"
+    href="{{ url_for('static', filename='uploads/' ~ media.filename) }}"
     target="_blank"
     >View Document</a
   >
-  {% endif %} {% endif %} {% if spreadsheet_content %}
-  <div class="spreadsheet-content">
-    <h2>Spreadsheet Content:</h2>
-    {{ spreadsheet_content | safe }}
-  </div>
-  {% endif %}
+  {% endif %} {% endfor %}
 
   <p class="mt-5">
     <small class="text-muted"
