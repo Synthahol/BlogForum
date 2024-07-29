@@ -13,7 +13,7 @@ load_dotenv()
 config = context.config
 
 # Interpret the config file for Python logging.
-fileConfig(config.config_file_name)
+fileConfig(os.path.join(os.path.dirname(__file__), "..", "alembic.ini"))
 
 # Determine which database URL to use based on the environment
 flask_env = os.getenv("FLASK_ENV", "development")
