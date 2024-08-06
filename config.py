@@ -14,6 +14,9 @@ class Config:
     PROFILE_PICS_FOLDER = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), "static/profile_pics"
     )
+    UPLOAD_FOLDER = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)), "static/uploads"
+    )
     MAX_CONTENT_PATH = 50 * 1024 * 1024  # 50 MB max file size
     ALLOWED_EXTENSIONS = {
         "png",

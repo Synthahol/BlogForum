@@ -1,7 +1,10 @@
+import os
+
 import bleach
 import docx
 import pandas as pd
 import pypandoc
+from flask import current_app
 from linkify_it import LinkifyIt
 from markdown import markdown
 from markdown.extensions import Extension
@@ -75,14 +78,16 @@ def allowed_file(filename):
 
 def save_media(form_media, user_id, post_id=None):
     filename = secure_filename(form_media.filename)
-    file_data = form_media.read()  # Read the file content
+    upload_folder = current_app.config["UPLOAD_FOLDER"]
+    file_path = os.path.join(upload_folder, filename)
+
+    form_media.save(file_path)  # Save the file to the filesystem
 
     new_media = Media(
         filename=filename,
         filetype=form_media.content_type,
         user_id=user_id,
         post_id=post_id,
-        data=file_data,  # Save the file content
     )
 
     db.session.add(new_media)

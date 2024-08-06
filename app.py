@@ -348,9 +348,14 @@ def new_post():
         db.session.add(post)  # Add post to session
         db.session.flush()  # Flush to get the post ID
 
-        # Handle media file
-        if form.media.data:
-            save_media(form.media.data, current_user.id, post.id)
+        # Handle media files
+        files = request.files.getlist("media")
+        for file in files:
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+                media = Media(filename=filename, post_id=post.id)
+                db.session.add(media)
 
         try:
             db.session.commit()
