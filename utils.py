@@ -85,7 +85,7 @@ def save_media(form_media, user_id, post_id=None):
 
     new_media = Media(
         filename=filename,
-        filetype=form_media.content_type,
+        filetype=form_media.content_type,  # Set the filetype
         user_id=user_id,
         post_id=post_id,
     )
