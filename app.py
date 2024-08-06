@@ -33,7 +33,7 @@ from flask_login import (
 from flask_migrate import Migrate
 from flask_wtf.csrf import generate_csrf
 from redis import Redis
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
@@ -314,9 +314,6 @@ def logout():
     cache.clear()
     flash("You have been logged out.", "success")
     return redirect(url_for("home"))
-
-
-from sqlalchemy.exc import SQLAlchemyError
 
 
 @app.route("/new_post", methods=["GET", "POST"])
