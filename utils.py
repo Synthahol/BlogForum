@@ -168,7 +168,7 @@ def sanitize_and_render_markdown(content):
     html_content = markdown(
         content, extensions=["extra", "sane_lists", LinkifyExtension()]
     )
-    allowed_tags = list(bleach.sanitizer.ALLOWED_TAGS) + ["a"]
+    allowed_tags = list(bleach.sanitizer.ALLOWED_TAGS) + ["a", "pre", "code"]
     allowed_attributes = {"a": ["href", "rel", "title"]}
     sanitized_html = bleach.clean(
         html_content, tags=allowed_tags, attributes=allowed_attributes, strip=True
