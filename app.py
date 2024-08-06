@@ -333,6 +333,11 @@ def new_post():
             author=current_user,
         )
 
+        
+        db.session.add(post)  # Add post to session
+        db.session.flush()  # Flush to get the post ID
+
+
         # Handle tags
         tag_names = [name.strip() for name in form.tags.data.split(",")]
         tags = []
@@ -344,9 +349,6 @@ def new_post():
                 db.session.add(tag)  # Add new tag to session
             tags.append(tag)
         post.tags = tags
-
-        db.session.add(post)  # Add post to session
-        db.session.flush()  # Flush to get the post ID
 
         # Handle media files
         files = request.files.getlist("media")
