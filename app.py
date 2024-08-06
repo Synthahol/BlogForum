@@ -316,66 +316,80 @@ def logout():
     return redirect(url_for("home"))
 
 
+from sqlalchemy.exc import SQLAlchemyError
+
+
 @app.route("/new_post", methods=["GET", "POST"])
 @login_required
 @limiter.limit("10 per minute")
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        # Sanitize title and content
-        sanitized_title = sanitize_and_render_markdown(form.title.data)
-        sanitized_content = sanitize_and_render_markdown(form.content.data)
-
-        # Create the post object
-        post = Post(
-            title=sanitized_title,
-            content=sanitized_content,
-            author=current_user,
-        )
-
-        
-        db.session.add(post)  # Add post to session
-        db.session.flush()  # Flush to get the post ID
-
-
-        # Handle tags
-        tag_names = [name.strip() for name in form.tags.data.split(",")]
-        tags = []
-        for name in tag_names:
-            tag = Tag.query.filter_by(name=name).first()
-            if tag is None:
-                slug = generate_unique_slug(name)
-                tag = Tag(name=name, slug=slug)
-                db.session.add(tag)  # Add new tag to session
-            tags.append(tag)
-        post.tags = tags
-
-        # Handle media files
-        files = request.files.getlist("media")
-        for file in files:
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
-                media = Media(filename=filename, post_id=post.id)
-                db.session.add(media)
-
         try:
+            # Sanitize title and content
+            sanitized_title = sanitize_and_render_markdown(form.title.data)
+            sanitized_content = sanitize_and_render_markdown(form.content.data)
+
+            # Create the post object
+            post = Post(
+                title=sanitized_title,
+                content=sanitized_content,
+                author=current_user,
+            )
+
+            db.session.add(post)  # Add post to session
+            db.session.flush()  # Flush to get the post ID and ensure it's in the session
+
+            # Handle tags
+            tag_names = [name.strip() for name in form.tags.data.split(",")]
+            tags = []
+            for name in tag_names:
+                tag = Tag.query.filter_by(name=name).first()
+                if tag is None:
+                    slug = generate_unique_slug(name)
+                    tag = Tag(name=name, slug=slug)
+                    db.session.add(tag)  # Add new tag to session
+                tags.append(tag)
+            post.tags = tags
+
+            # Handle media files
+            files = request.files.getlist("media")
+            for file in files:
+                if file and allowed_file(file.filename):
+                    filename = secure_filename(file.filename)
+                    file.save(
+                        os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+                    )
+                    media = Media(filename=filename, post_id=post.id)
+                    db.session.add(media)
+
             db.session.commit()
             # Clear the cache for the home page after a new post is created
             cache.clear()
-        except IntegrityError:
+            current_app.logger.info(f"Post created: {post.title}")
+
+            return redirect(url_for("home"))
+
+        except IntegrityError as e:
             db.session.rollback()
             current_app.logger.error(
-                f"Integrity error while creating post: {post.title}"
+                f"Integrity error while creating post: {post.title}. Error: {e.orig}"
             )
             flash(
-                "An error occurred while creating the post. Please try again.", "danger"
+                "An integrity error occurred while creating the post. Please check for duplicate or invalid data.",
+                "danger",
             )
             return redirect(url_for("new_post"))
-
-        current_app.logger.info(f"Post created: {post.title}")
-
-        return redirect(url_for("home"))
+        except SQLAlchemyError as e:
+            db.session.rollback()
+            current_app.logger.error(
+                f"SQLAlchemy error while creating post: {post.title}. Error: {str(e)}"
+            )
+            flash(
+                "A database error occurred while creating the post. Please try again.",
+                "danger",
+            )
+            return redirect(url_for("new_post"))
 
     return render_template("add.html", form=form)
 
